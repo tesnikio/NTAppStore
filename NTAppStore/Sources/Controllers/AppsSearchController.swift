@@ -10,6 +10,8 @@ import UIKit
 
 class AppsSearchController: UICollectionViewController {
     
+    fileprivate let cellId = "Cell"
+    
     init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
     }
@@ -22,6 +24,27 @@ class AppsSearchController: UICollectionViewController {
         super.viewDidLoad()
         
         collectionView.backgroundColor = .white
+        collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: cellId)
     }
+}
 
+//MARK: - UICollectionViewDataSource
+extension AppsSearchController {
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 5
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+
+        return cell
+    }
+}
+
+//MARK: - UICollectionViewDelegateFlowLayout
+extension AppsSearchController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return .init(width: view.frame.width, height: 250)
+    }
 }

@@ -14,6 +14,8 @@
 		4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */; };
 		4CA089AC22F86BBE00F9BB7A /* AppsSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089AB22F86BBE00F9BB7A /* AppsSearchController.swift */; };
 		4CA089B122F8735400F9BB7A /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089B022F8735400F9BB7A /* SearchResultCell.swift */; };
+		4CA089B522F87B7600F9BB7A /* UIView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089B422F87B7600F9BB7A /* UIView+Layout.swift */; };
+		4CA089B722F87F9A00F9BB7A /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089B622F87F9A00F9BB7A /* VerticalStackView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		4CA089AB22F86BBE00F9BB7A /* AppsSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsSearchController.swift; sourceTree = "<group>"; };
 		4CA089B022F8735400F9BB7A /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
+		4CA089B422F87B7600F9BB7A /* UIView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Layout.swift"; sourceTree = "<group>"; };
+		4CA089B622F87F9A00F9BB7A /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				4C598E3622F85E880076804A /* AppDelegate.swift */,
+				4CA089B322F87B5B00F9BB7A /* Helpers */,
 				4CA089AF22F8732500F9BB7A /* Views */,
 				4CA089A822F86B4F00F9BB7A /* Controllers */,
 			);
@@ -108,6 +113,15 @@
 				4CA089B022F8735400F9BB7A /* SearchResultCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		4CA089B322F87B5B00F9BB7A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4CA089B422F87B7600F9BB7A /* UIView+Layout.swift */,
+				4CA089B622F87F9A00F9BB7A /* VerticalStackView.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,9 +196,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				4C598E3722F85E880076804A /* AppDelegate.swift in Sources */,
+				4CA089B722F87F9A00F9BB7A /* VerticalStackView.swift in Sources */,
 				4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */,
 				4CA089B122F8735400F9BB7A /* SearchResultCell.swift in Sources */,
 				4CA089AC22F86BBE00F9BB7A /* AppsSearchController.swift in Sources */,
+				4CA089B522F87B7600F9BB7A /* UIView+Layout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

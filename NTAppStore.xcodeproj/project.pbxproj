@@ -8,22 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		4C598E3722F85E880076804A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C598E3622F85E880076804A /* AppDelegate.swift */; };
-		4C598E3922F85E880076804A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C598E3822F85E880076804A /* ViewController.swift */; };
 		4C598E3C22F85E880076804A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C598E3A22F85E880076804A /* Main.storyboard */; };
 		4C598E3E22F85E890076804A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C598E3D22F85E890076804A /* Assets.xcassets */; };
 		4C598E4122F85E890076804A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C598E3F22F85E890076804A /* LaunchScreen.storyboard */; };
 		4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */; };
+		4CA089AC22F86BBE00F9BB7A /* AppsSearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089AB22F86BBE00F9BB7A /* AppsSearchController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4C598E3322F85E880076804A /* NTAppStore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NTAppStore.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C598E3622F85E880076804A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4C598E3822F85E880076804A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4C598E3B22F85E880076804A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4C598E3D22F85E890076804A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4C598E4022F85E890076804A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C598E4222F85E890076804A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		4CA089AB22F86BBE00F9BB7A /* AppsSearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsSearchController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +56,39 @@
 		4C598E3522F85E880076804A /* NTAppStore */ = {
 			isa = PBXGroup;
 			children = (
-				4C598E3622F85E880076804A /* AppDelegate.swift */,
-				4C598E3822F85E880076804A /* ViewController.swift */,
+				4CA089AE22F86DBF00F9BB7A /* Sources */,
+				4CA089AD22F86D9D00F9BB7A /* Resources */,
+			);
+			path = NTAppStore;
+			sourceTree = "<group>";
+		};
+		4CA089A822F86B4F00F9BB7A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */,
+				4CA089AB22F86BBE00F9BB7A /* AppsSearchController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4CA089AD22F86D9D00F9BB7A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				4C598E3A22F85E880076804A /* Main.storyboard */,
 				4C598E3D22F85E890076804A /* Assets.xcassets */,
 				4C598E3F22F85E890076804A /* LaunchScreen.storyboard */,
 				4C598E4222F85E890076804A /* Info.plist */,
-				4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */,
 			);
-			path = NTAppStore;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4CA089AE22F86DBF00F9BB7A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				4C598E3622F85E880076804A /* AppDelegate.swift */,
+				4CA089A822F86B4F00F9BB7A /* Controllers */,
+			);
+			path = Sources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +162,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C598E3922F85E880076804A /* ViewController.swift in Sources */,
 				4C598E3722F85E880076804A /* AppDelegate.swift in Sources */,
 				4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */,
+				4CA089AC22F86BBE00F9BB7A /* AppsSearchController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,7 +312,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CJS444RRKW;
-				INFOPLIST_FILE = NTAppStore/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/NTAppStore/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -306,7 +330,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = CJS444RRKW;
-				INFOPLIST_FILE = NTAppStore/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/NTAppStore/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

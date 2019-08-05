@@ -11,6 +11,7 @@ import UIKit
 class AppsSearchController: UICollectionViewController {
     
     fileprivate let cellId = "Cell"
+    fileprivate var appResults = [Result]()
     
     init() {
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
@@ -23,8 +24,27 @@ class AppsSearchController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupViews()
+        registerCells()
+        fetchAppStoreApps()
+    }
+    
+    fileprivate func setupViews() {
         collectionView.backgroundColor = .white
+    }
+    
+    fileprivate func registerCells() {
         collectionView.register(SearchResultCell.self, forCellWithReuseIdentifier: cellId)
+    }
+    
+    fileprivate func fetchAppStoreApps() {
+        Service.shared.fetchApps { [weak self] result in
+            guard let self = self else { return }
+            self.appResults = result
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
     }
 }
 
@@ -32,13 +52,22 @@ class AppsSearchController: UICollectionViewController {
 extension AppsSearchController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return appResults.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
-
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? SearchResultCell {
+            
+            let appResult = appResults[indexPath.item]
+            
+            cell.nameLabel.text = appResult.trackName
+            cell.categoryLabel.text = appResult.primaryGenreName
+            cell.ratingsLabel.text = String(describing: appResult.userRatingCount != nil ? appResult.userRatingCount! : 0)
+            
+            return cell
+        }
+        
+        return UICollectionViewCell()
     }
 }
 
@@ -48,3 +77,5 @@ extension AppsSearchController: UICollectionViewDelegateFlowLayout {
         return .init(width: view.frame.width, height: 350)
     }
 }
+
+

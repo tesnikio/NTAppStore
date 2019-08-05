@@ -38,9 +38,14 @@ class AppsSearchController: UICollectionViewController {
     }
     
     fileprivate func fetchAppStoreApps() {
-        Service.shared.fetchApps { [weak self] result in
+        Service.shared.fetchApps { [weak self] results, error in
+            if let error = error {
+                print("Failed to fetch apps: ", error)
+                return
+            }
+            
             guard let self = self else { return }
-            self.appResults = result
+            self.appResults = results
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }

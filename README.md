@@ -8,6 +8,6 @@ Demo AppStore application using various JSON APIs coming directly from Apple's i
 
 * [SDWebImage](https://github.com/SDWebImage/SDWebImage) - Asynchronous image downloader with cache support as a UIImageView category
 
-## Authors
+## Author
 
 * **Nikita Teslyuk** 

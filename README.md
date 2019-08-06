@@ -10,4 +10,4 @@ Demo AppStore application using various JSON APIs coming directly from Apple's i
 
 ## Authors
 
-* **Nikita Teslyuk** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Nikita Teslyuk** 

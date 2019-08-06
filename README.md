@@ -1,3 +1,13 @@
+![Github-README-image](https://user-images.githubusercontent.com/9624750/62546410-1a602c80-b86c-11e9-9caf-00b487322290.png)
+
 # NTAppStore
 
-![Github-README-image](https://user-images.githubusercontent.com/9624750/62546410-1a602c80-b86c-11e9-9caf-00b487322290.png)
+Demo AppStore application using various JSON APIs coming directly from Apple's iTunes Search API.
+
+## Built With
+
+* [SDWebImage](https://github.com/SDWebImage/SDWebImage) - Asynchronous image downloader with cache support as a UIImageView category
+
+## Authors
+
+* **Nikita Teslyuk** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)

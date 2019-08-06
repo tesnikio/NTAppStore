@@ -41,26 +41,26 @@ class SearchResultCell: UICollectionViewCell {
     
     let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "App Name"
         return label
     }()
     
     let categoryLabel: UILabel = {
         let label = UILabel()
-        label.text = "Photo & Video"
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .gray
         return label
     }()
     
     let ratingsLabel: UILabel = {
         let label = UILabel()
-        label.text = "9.26M"
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .gray
         return label
     }()
     
     let getButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Get", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
+        button.setTitle("GET", for: .normal)
         button.titleLabel?.font = .boldSystemFont(ofSize: 14)
         button.backgroundColor = UIColor(white: 0.95, alpha: 1)
         button.widthAnchor.constraint(equalToConstant: 80).isActive = true

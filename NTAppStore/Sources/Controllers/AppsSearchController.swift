@@ -43,7 +43,7 @@ class AppsSearchController: UICollectionViewController {
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
         collectionView.addSubview(placeholderSearchLabel)
-        placeholderSearchLabel.fillSuperview(padding: .init(top: 250, left: 65, bottom: 0, right: 50))
+        placeholderSearchLabel.fillSuperview(padding: .init(top: 250, left: 50, bottom: 0, right: 50))
         searchController.searchBar.placeholder = "Enter the app name"
     }
     

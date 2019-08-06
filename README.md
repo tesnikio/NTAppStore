@@ -10,4 +10,4 @@ Demo AppStore application using various JSON APIs coming directly from Apple's i
 
 ## Author
 
-* **[Nikita Teslyuk] (https://medium.com/@tesnik)** 
+* [**Nikita Teslyuk**](https://medium.com/@tesnik)

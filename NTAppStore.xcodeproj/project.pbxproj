@@ -19,6 +19,7 @@
 		4CA089B722F87F9A00F9BB7A /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089B622F87F9A00F9BB7A /* VerticalStackView.swift */; };
 		4CA089BA22F8C29C00F9BB7A /* SearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089B922F8C29C00F9BB7A /* SearchResult.swift */; };
 		4CA089BD22F8CB1D00F9BB7A /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089BC22F8CB1D00F9BB7A /* Service.swift */; };
+		4CA580C822F9AD88001951CB /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA580C722F9AD88001951CB /* UILabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		4CA089B622F87F9A00F9BB7A /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		4CA089B922F8C29C00F9BB7A /* SearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResult.swift; sourceTree = "<group>"; };
 		4CA089BC22F8CB1D00F9BB7A /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		4CA580C722F9AD88001951CB /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		59F9C66B7C8C63899F0465B9 /* Pods_NTAppStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NTAppStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A208FD4AB920BB829A22447B /* Pods-NTAppStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NTAppStore.release.xcconfig"; path = "Target Support Files/Pods-NTAppStore/Pods-NTAppStore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -58,7 +60,6 @@
 				1CADC127B64CDB92DE96962D /* Pods-NTAppStore.debug.xcconfig */,
 				A208FD4AB920BB829A22447B /* Pods-NTAppStore.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -143,6 +144,7 @@
 			children = (
 				4CA089B422F87B7600F9BB7A /* UIView+Layout.swift */,
 				4CA089B622F87F9A00F9BB7A /* VerticalStackView.swift */,
+				4CA580C722F9AD88001951CB /* UILabel.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -295,6 +297,7 @@
 				4CA089BD22F8CB1D00F9BB7A /* Service.swift in Sources */,
 				4CA089BA22F8C29C00F9BB7A /* SearchResult.swift in Sources */,
 				4CA089B722F87F9A00F9BB7A /* VerticalStackView.swift in Sources */,
+				4CA580C822F9AD88001951CB /* UILabel.swift in Sources */,
 				4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */,
 				4CA089B122F8735400F9BB7A /* SearchResultCell.swift in Sources */,
 				4CA089AC22F86BBE00F9BB7A /* AppsSearchController.swift in Sources */,

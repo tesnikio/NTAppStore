@@ -18,9 +18,10 @@ class AppsSearchController: UICollectionViewController {
     
     fileprivate let placeholderSearchLabel: UILabel = {
         let label = UILabel()
-        label.text = "Please enter app name above..."
+        label.text = "No search results"
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.textColor = UIColor.lightGray
         return label
     }()
     
@@ -43,7 +44,9 @@ class AppsSearchController: UICollectionViewController {
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
         collectionView.addSubview(placeholderSearchLabel)
-        placeholderSearchLabel.fillSuperview(padding: .init(top: 250, left: 50, bottom: 0, right: 50))
+        placeholderSearchLabel.translatesAutoresizingMaskIntoConstraints = false
+        placeholderSearchLabel.centerXInSuperview()
+        placeholderSearchLabel.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 200).isActive = true
         searchController.searchBar.placeholder = "Enter the app name"
     }
     
@@ -103,6 +106,13 @@ extension AppsSearchController: UISearchBarDelegate {
                 }
             }
         })
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+extension AppsSearchController {
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        searchController.searchBar.resignFirstResponder()
     }
 }
 

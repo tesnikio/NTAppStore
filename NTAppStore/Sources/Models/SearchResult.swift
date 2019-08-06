@@ -16,7 +16,7 @@ struct SearchResult: Decodable {
 struct Result: Decodable {
     let trackName: String
     let primaryGenreName: String
-    let userRatingCount: Int?
+    let averageUserRating: Float?
     let artworkUrl100: String
     let screenshotUrls: [String]
 }

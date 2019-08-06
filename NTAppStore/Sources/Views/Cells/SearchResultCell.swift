@@ -39,24 +39,10 @@ class SearchResultCell: UICollectionViewCell {
         return imageView
     }()
     
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
-    
-    let categoryLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .gray
-        return label
-    }()
-    
-    let ratingsLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14)
-        label.textColor = .gray
-        return label
-    }()
+    let nameLabel = UILabel()
+    let categoryLabel = UILabel(text: "Category", font: .systemFont(ofSize: 14), textColor: .gray)
+    let ratingsLabel = UILabel(text: "Rating", font: .systemFont(ofSize: 14), textColor: .gray)
+
     
     let getButton: UIButton = {
         let button = UIButton(type: .system)
@@ -83,9 +69,7 @@ class SearchResultCell: UICollectionViewCell {
         return imageView
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
+    fileprivate func setupViews() {
         let infoTopStackView = UIStackView(arrangedSubviews: [
             appIconImageView,
             VerticalStackView(arrangedSubviews: [
@@ -97,22 +81,25 @@ class SearchResultCell: UICollectionViewCell {
         infoTopStackView.alignment = .center
         
         let screenshotsStackView = UIStackView(arrangedSubviews: [
-                screenshot1ImageView, screenshot2ImageView, screenshot3ImageView,
+            screenshot1ImageView, screenshot2ImageView, screenshot3ImageView,
             ])
         screenshotsStackView.spacing = 12
         screenshotsStackView.distribution = .fillEqually
         
         let overallStackView = VerticalStackView(arrangedSubviews: [
-                infoTopStackView, screenshotsStackView,
+            infoTopStackView, screenshotsStackView,
             ], spacing: 16)
         
         addSubview(overallStackView)
         overallStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupViews()
+    }
+        
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    
+    }    
 }

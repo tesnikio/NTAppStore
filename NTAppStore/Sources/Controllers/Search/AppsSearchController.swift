@@ -9,29 +9,16 @@
 import UIKit
 import SDWebImage
 
-class AppsSearchController: UICollectionViewController {
+class AppsSearchController: BaseListController {
     
-    fileprivate let cellId = "Cell"
-    fileprivate var appResults = [Result]()
+    fileprivate let cellId = "SearchCell"
     fileprivate let searchController = UISearchController(searchResultsController: nil)
     fileprivate var timer: Timer?
-    
-    fileprivate let placeholderSearchLabel: UILabel = {
-        let label = UILabel()
-        label.text = "No search results"
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.textColor = UIColor.lightGray
-        return label
-    }()
-    
-    init() {
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    fileprivate var appResults = [Result]()
+    fileprivate let placeholderSearchLabel = UILabel(text: "No search results",
+                                                     font: .systemFont(ofSize: 20, weight: .medium),
+                                                     textColor: .lightGray,
+                                                     textAlignment: .center)
     
     override func viewDidLoad() {
         super.viewDidLoad()

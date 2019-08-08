@@ -1,5 +1,5 @@
 //
-//  AppsSearchController.swift
+//  SearchPageController.swift
 //  NTAppStore
 //
 //  Created by Nikita Teslyuk on 05/08/2019.
@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class AppsSearchController: BaseListController {
+class SearchPageController: BaseListController {
     
     fileprivate let cellId = "SearchCell"
     fileprivate let searchController = UISearchController(searchResultsController: nil)
@@ -51,7 +51,7 @@ class AppsSearchController: BaseListController {
 }
 
 //MARK: - UICollectionViewDataSource
-extension AppsSearchController {
+extension SearchPageController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         placeholderSearchLabel.isHidden = appResults.count != 0
@@ -69,14 +69,14 @@ extension AppsSearchController {
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
-extension AppsSearchController: UICollectionViewDelegateFlowLayout {
+extension SearchPageController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: 350)
     }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
-extension AppsSearchController: UISearchBarDelegate {
+extension SearchPageController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         timer?.invalidate()
@@ -97,7 +97,7 @@ extension AppsSearchController: UISearchBarDelegate {
 }
 
 //MARK: - UIScrollViewDelegate
-extension AppsSearchController {
+extension SearchPageController {
     override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         searchController.searchBar.resignFirstResponder()
     }

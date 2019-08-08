@@ -11,9 +11,7 @@ import UIKit
 class AppsGroupCell: UICollectionViewCell {
     
     let sectionTitleLabel = UILabel(text: "App Section", font: .boldSystemFont(ofSize: 30))
-
     let horizontalViewController = AppsHorizontalController()
-
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,10 +24,9 @@ class AppsGroupCell: UICollectionViewCell {
     
     fileprivate func setupViews() {
         addSubview(sectionTitleLabel)
-        sectionTitleLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
-        
         addSubview(horizontalViewController.view)
-        horizontalViewController.view.backgroundColor = .blue
+        
+        sectionTitleLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
         horizontalViewController.view.anchor(top: sectionTitleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
     }
 }

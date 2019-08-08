@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppsController: BaseListController {
+class AppsPageController: BaseListController {
     
     fileprivate let cellId = "AppsCell"
     
@@ -29,7 +29,7 @@ class AppsController: BaseListController {
 }
 
 //MARK: - UICollectionViewDataSource
-extension AppsController {
+extension AppsPageController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 5
     }
@@ -42,7 +42,7 @@ extension AppsController {
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
-extension AppsController: UICollectionViewDelegateFlowLayout {
+extension AppsPageController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: view.frame.width, height: 300)
     }

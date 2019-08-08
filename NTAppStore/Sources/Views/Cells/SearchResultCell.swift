@@ -43,7 +43,6 @@ class SearchResultCell: UICollectionViewCell {
     let categoryLabel = UILabel(text: "Category", font: .systemFont(ofSize: 14), textColor: .gray)
     let ratingsLabel = UILabel(text: "Rating", font: .systemFont(ofSize: 14), textColor: .gray)
 
-    
     let getButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("GET", for: .normal)

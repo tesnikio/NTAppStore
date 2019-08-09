@@ -12,12 +12,14 @@ class AppsPageController: BaseListController {
     
     fileprivate let cellId = "AppsGroupCell"
     fileprivate let headerId = "AppsPageHeader"
+    fileprivate var appGroup: AppGroup?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
         registerViews()
+        fetchData()
     }
     
     fileprivate func setupViews() {
@@ -28,18 +30,40 @@ class AppsPageController: BaseListController {
         collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
+    
+    fileprivate func fetchData() {
+        Service.shared.fetchAppGroup { [weak self] (appGroup, error) in
+            if let error = error {
+                print("Failed to fetch app group: ", error)
+                return
+            }
+            
+            guard let self = self else { return }
+            guard let appGroup = appGroup else { return }
+            self.appGroup = appGroup
+            
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+    }
 }
 
 //MARK: - UICollectionViewDataSource
 extension AppsPageController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? AppsGroupCell {
+            cell.sectionTitleLabel.text = appGroup?.feed.title
+            cell.horizontalViewController.appGroup = appGroup
+            cell.horizontalViewController.collectionView.reloadData()
+            return cell
+        }
         
-        return cell
+        return UICollectionViewCell()
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

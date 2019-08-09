@@ -30,6 +30,7 @@
 		4CD1FDE722FD8396009D3241 /* AppsPageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE622FD8396009D3241 /* AppsPageHeader.swift */; };
 		4CD1FDEA22FD89DB009D3241 /* AppsHeaderHorizontalController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE922FD89DB009D3241 /* AppsHeaderHorizontalController.swift */; };
 		4CD1FDEC22FD93C6009D3241 /* AppsHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDEB22FD93C6009D3241 /* AppsHeaderCell.swift */; };
+		4CD1FDEE22FD9D43009D3241 /* AppGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDED22FD9D43009D3241 /* AppGroup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		4CD1FDE622FD8396009D3241 /* AppsPageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsPageHeader.swift; sourceTree = "<group>"; };
 		4CD1FDE922FD89DB009D3241 /* AppsHeaderHorizontalController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderHorizontalController.swift; sourceTree = "<group>"; };
 		4CD1FDEB22FD93C6009D3241 /* AppsHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsHeaderCell.swift; sourceTree = "<group>"; };
+		4CD1FDED22FD9D43009D3241 /* AppGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroup.swift; sourceTree = "<group>"; };
 		59F9C66B7C8C63899F0465B9 /* Pods_NTAppStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NTAppStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A208FD4AB920BB829A22447B /* Pods-NTAppStore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NTAppStore.release.xcconfig"; path = "Target Support Files/Pods-NTAppStore/Pods-NTAppStore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				4CA089B922F8C29C00F9BB7A /* SearchResult.swift */,
+				4CD1FDED22FD9D43009D3241 /* AppGroup.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				4C0BFBBE22FA1153006AA41E /* AppsGroupCell.swift in Sources */,
 				4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */,
 				4CA089B122F8735400F9BB7A /* SearchResultCell.swift in Sources */,
+				4CD1FDEE22FD9D43009D3241 /* AppGroup.swift in Sources */,
 				4CD1FDEC22FD93C6009D3241 /* AppsHeaderCell.swift in Sources */,
 				4CA089AC22F86BBE00F9BB7A /* SearchPageController.swift in Sources */,
 				4C0BFBC022FA179E006AA41E /* AppsHorizontalController.swift in Sources */,

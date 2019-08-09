@@ -8,6 +8,12 @@
 
 import Foundation
 
+enum FeedType: String {
+    case topFree = "top-free"
+    case topGrossing = "top-grossing"
+    case newGames = "new-games-we-love"
+}
+
 final class Service {
     private init() {}
     
@@ -37,10 +43,13 @@ final class Service {
             }.resume()
     }
     
-    func fetchAppGroup(completion: @escaping (AppGroup?, Error?) -> ()) {
-        guard let url = URL(string: "https://rss.itunes.apple.com/api/v1/us/ios-apps/new-games-we-love/all/50/explicit.json") else {
-            return
-        }
+    func createUrlForFeedType(type: FeedType) -> URL? {
+        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/\(type.rawValue)/all/25/explicit.json"
+        return URL(string: urlString)
+    }
+    
+    func fetchByType(type: FeedType , completion: @escaping (AppGroup?, Error?) -> ()) {
+        guard let url = createUrlForFeedType(type: type) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {

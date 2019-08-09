@@ -12,7 +12,7 @@ class AppsPageController: BaseListController {
     
     fileprivate let cellId = "AppsGroupCell"
     fileprivate let headerId = "AppsPageHeader"
-    fileprivate var appGroup: AppGroup?
+    fileprivate var groups = [AppGroup]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,19 +32,45 @@ class AppsPageController: BaseListController {
     }
     
     fileprivate func fetchData() {
-        Service.shared.fetchAppGroup { [weak self] (appGroup, error) in
-            if let error = error {
-                print("Failed to fetch app group: ", error)
-                return
+        
+        var appGroup1: AppGroup?
+        var appGroup2: AppGroup?
+        var appGroup3: AppGroup?
+        
+        let dispatchGroup = DispatchGroup()
+        
+        dispatchGroup.enter()
+        Service.shared.fetchByType(type: .newGames) { (appGroup, error) in
+            dispatchGroup.leave()
+            appGroup1 = appGroup
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchByType(type: .topGrossing) { (appGroup, error) in
+            dispatchGroup.leave()
+            appGroup2 = appGroup
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchByType(type: .topFree) { (appGroup, error) in
+            dispatchGroup.leave()
+            appGroup3 = appGroup
+        }
+        
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            if let appGroup = appGroup1 {
+                self?.groups.append(appGroup)
             }
             
-            guard let self = self else { return }
-            guard let appGroup = appGroup else { return }
-            self.appGroup = appGroup
-            
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
+            if let appGroup = appGroup2 {
+                self?.groups.append(appGroup)
             }
+            
+            if let appGroup = appGroup3 {
+                self?.groups.append(appGroup)
+            }
+            
+            self?.collectionView.reloadData()
         }
     }
 }
@@ -52,12 +78,15 @@ class AppsPageController: BaseListController {
 //MARK: - UICollectionViewDataSource
 extension AppsPageController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return groups.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? AppsGroupCell {
-            cell.sectionTitleLabel.text = appGroup?.feed.title
+            
+            let appGroup = groups[indexPath.item]
+            
+            cell.sectionTitleLabel.text = appGroup.feed.title
             cell.horizontalViewController.appGroup = appGroup
             cell.horizontalViewController.collectionView.reloadData()
             return cell
@@ -82,7 +111,8 @@ extension AppsPageController: UICollectionViewDelegateFlowLayout {
         return .init(top: 16, left: 0, bottom: 0, right: 0)
     }
     
+    //enable header
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: view.frame.width, height: 300)
+        return .init(width: view.frame.width, height: 0)
     }
 }

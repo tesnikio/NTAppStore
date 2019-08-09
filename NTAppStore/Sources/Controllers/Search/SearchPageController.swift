@@ -11,7 +11,7 @@ import SDWebImage
 
 class SearchPageController: BaseListController {
     
-    fileprivate let cellId = "SearchCell"
+    fileprivate let cellId = "SearchResultCell"
     fileprivate let searchController = UISearchController(searchResultsController: nil)
     fileprivate var timer: Timer?
     fileprivate var appResults = [Result]()

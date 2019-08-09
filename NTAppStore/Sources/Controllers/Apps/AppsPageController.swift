@@ -10,21 +10,23 @@ import UIKit
 
 class AppsPageController: BaseListController {
     
-    fileprivate let cellId = "AppsCell"
+    fileprivate let cellId = "AppsGroupCell"
+    fileprivate let headerId = "AppsPageHeader"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupViews()
-        registerCells()
+        registerViews()
     }
     
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
     }
     
-    fileprivate func registerCells() {
+    fileprivate func registerViews() {
         collectionView.register(AppsGroupCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
 }
 
@@ -39,6 +41,11 @@ extension AppsPageController {
         
         return cell
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
+        return header
+    }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
@@ -49,5 +56,9 @@ extension AppsPageController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 16, left: 0, bottom: 0, right: 0)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return .init(width: view.frame.width, height: 300)
     }
 }

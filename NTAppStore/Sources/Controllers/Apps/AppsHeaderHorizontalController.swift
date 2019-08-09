@@ -10,7 +10,8 @@ import UIKit
 
 class AppsHeaderHorizontalController: BaseListController {
     
-    fileprivate let cellId = "AppHeaderCell"
+    fileprivate let cellId = "AppsHeaderCell"
+    var headers = [HeaderApp]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,11 +36,15 @@ class AppsHeaderHorizontalController: BaseListController {
 //MARK: - UICollectionViewDataSource
 extension AppsHeaderHorizontalController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return headers.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppsHeaderCell
+        let header = headers[indexPath.item]
+        cell.companyLabel.text = header.name
+        cell.titleLabel.text = header.tagline
+        cell.adImageView.sd_setImage(with: URL(string: header.imageUrl))
         return cell
     }
 }
@@ -51,6 +56,6 @@ extension AppsHeaderHorizontalController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 0, left: 16, bottom: 0, right: 0)
+        return .init(top: 0, left: 16, bottom: 0, right: 16)
     }
 }

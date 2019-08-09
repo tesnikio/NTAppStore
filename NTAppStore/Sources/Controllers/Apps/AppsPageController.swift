@@ -13,6 +13,14 @@ class AppsPageController: BaseListController {
     fileprivate let cellId = "AppsGroupCell"
     fileprivate let headerId = "AppsPageHeader"
     fileprivate var groups = [AppGroup]()
+    fileprivate var headers = [HeaderApp]()
+    fileprivate let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .whiteLarge)
+        indicator.color = .gray
+        indicator.startAnimating()
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +32,8 @@ class AppsPageController: BaseListController {
     
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
+        view.addSubview(activityIndicator)
+        activityIndicator.fillSuperview()
     }
     
     fileprivate func registerViews() {
@@ -57,7 +67,17 @@ class AppsPageController: BaseListController {
             appGroup3 = appGroup
         }
         
+        dispatchGroup.enter()
+        Service.shared.fetchHeaders { [weak self] (headers, error) in
+            dispatchGroup.leave()
+            if let headers = headers {
+                self?.headers = headers
+            }
+        }
+        
         dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.activityIndicator.stopAnimating()
+            
             if let appGroup = appGroup1 {
                 self?.groups.append(appGroup)
             }
@@ -96,7 +116,11 @@ extension AppsPageController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath)
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerId, for: indexPath) as! AppsPageHeader
+        
+        header.appHeaderHorizontalController.headers = headers
+        header.appHeaderHorizontalController.collectionView.reloadData()
+        
         return header
     }
 }
@@ -111,8 +135,7 @@ extension AppsPageController: UICollectionViewDelegateFlowLayout {
         return .init(top: 16, left: 0, bottom: 0, right: 0)
     }
     
-    //enable header
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: view.frame.width, height: 0)
+        return .init(width: view.frame.width, height: 300)
     }
 }

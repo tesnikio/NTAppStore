@@ -14,9 +14,7 @@ class AppsHeaderCell: UICollectionViewCell {
     let titleLabel = UILabel(text: "Keeping up with friends is faster than ever", font: .systemFont(ofSize: 24), numberOfLines: 0)
     let adImageView = UIImageView(cornerRadius: 8)
     
-    fileprivate func setupViews() {
-        adImageView.backgroundColor = .red
-        
+    fileprivate func setupViews() {        
         let stackView = VerticalStackView(arrangedSubviews: [companyLabel, titleLabel, adImageView], spacing: 12)
         addSubview(stackView)
         stackView.fillSuperview(padding: .init(top: 16, left: 0, bottom: 0, right: 0))

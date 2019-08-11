@@ -13,23 +13,31 @@ class SnappingLayout: UICollectionViewFlowLayout {
 
         guard let collectionView = collectionView else {
             return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
-            
         }
         
-        let parent = super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
+        let nextX: CGFloat
         
-        let itemWidth = collectionView.frame.width - 48
-        let itemSpace = itemWidth + minimumInteritemSpacing
-        var pageIdx = round(collectionView.contentOffset.x / itemSpace)
-        
-        if velocity.x > 0 {
-            pageIdx += 1
-        } else if velocity.x < 0 {
-            pageIdx -= 1
+        if proposedContentOffset.x <= 0 || collectionView.contentOffset == proposedContentOffset {
+            nextX = proposedContentOffset.x
+        } else {
+            nextX = collectionView.contentOffset.x + (velocity.x > 0 ? collectionView.bounds.size.width : -collectionView.bounds.size.width)
         }
         
-        let nearestPageOffset = pageIdx * itemSpace
-        return CGPoint(x: nearestPageOffset,
-                       y: parent.y)
+        let targetRect = CGRect(x: nextX, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height)
+        
+        var offsetAdjustment = CGFloat.greatestFiniteMagnitude
+        
+        let horizontalOffset = proposedContentOffset.x + collectionView.contentInset.left
+        
+        let layoutAttributesArray = super.layoutAttributesForElements(in: targetRect)
+        
+        layoutAttributesArray?.forEach({ (layoutAttributes) in
+            let itemOffset = layoutAttributes.frame.origin.x
+            if fabsf(Float(itemOffset - horizontalOffset)) < fabsf(Float(offsetAdjustment)) {
+                offsetAdjustment = itemOffset - horizontalOffset
+            }
+        })
+        
+        return .init(x: proposedContentOffset.x + offsetAdjustment, y: proposedContentOffset.y)
     }
 }

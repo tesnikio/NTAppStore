@@ -25,6 +25,7 @@ class AppsHorizontalController: HorizontalSnappingController {
     
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
+        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
     }
     
     fileprivate func registerCells() {
@@ -57,7 +58,7 @@ extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: topBottomPadding, left: 16, bottom: topBottomPadding, right: 16)
+        return .init(top: topBottomPadding, left: 0, bottom: topBottomPadding, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

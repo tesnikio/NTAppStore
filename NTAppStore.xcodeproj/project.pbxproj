@@ -18,6 +18,11 @@
 		4C598E3E22F85E890076804A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C598E3D22F85E890076804A /* Assets.xcassets */; };
 		4C598E4122F85E890076804A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4C598E3F22F85E890076804A /* LaunchScreen.storyboard */; };
 		4C7E8F5822FDEED100F92848 /* HeaderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C7E8F5722FDEED100F92848 /* HeaderApp.swift */; };
+		4C873F1723002B4700E03436 /* Completions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C873F1623002B4700E03436 /* Completions.swift */; };
+		4C873F1923002D7200E03436 /* Weak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C873F1823002D7200E03436 /* Weak.swift */; };
+		4C873F1B23002DAA00E03436 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C873F1A23002DAA00E03436 /* Font.swift */; };
+		4C873F1F23002F7800E03436 /* HorizontalSnappingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C873F1E23002F7800E03436 /* HorizontalSnappingController.swift */; };
+		4C873F212300305200E03436 /* SnappingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C873F202300305200E03436 /* SnappingLayout.swift */; };
 		4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */; };
 		4CA089AC22F86BBE00F9BB7A /* SearchPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089AB22F86BBE00F9BB7A /* SearchPageController.swift */; };
 		4CA089B122F8735400F9BB7A /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089B022F8735400F9BB7A /* SearchResultCell.swift */; };
@@ -48,6 +53,11 @@
 		4C598E4022F85E890076804A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4C598E4222F85E890076804A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4C7E8F5722FDEED100F92848 /* HeaderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderApp.swift; sourceTree = "<group>"; };
+		4C873F1623002B4700E03436 /* Completions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completions.swift; sourceTree = "<group>"; };
+		4C873F1823002D7200E03436 /* Weak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weak.swift; sourceTree = "<group>"; };
+		4C873F1A23002DAA00E03436 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		4C873F1E23002F7800E03436 /* HorizontalSnappingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnappingController.swift; sourceTree = "<group>"; };
+		4C873F202300305200E03436 /* SnappingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnappingLayout.swift; sourceTree = "<group>"; };
 		4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		4CA089AB22F86BBE00F9BB7A /* SearchPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageController.swift; sourceTree = "<group>"; };
 		4CA089B022F8735400F9BB7A /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchResultCell.swift; path = ../SearchResultCell.swift; sourceTree = "<group>"; };
@@ -140,12 +150,51 @@
 			path = NTAppStore;
 			sourceTree = "<group>";
 		};
+		4C873F1C23002DF800E03436 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				4CA089B422F87B7600F9BB7A /* UIView+Layout.swift */,
+				4CA089B622F87F9A00F9BB7A /* VerticalStackView.swift */,
+				4CA580C722F9AD88001951CB /* UILabel.swift */,
+				4CD1FDE222FC8241009D3241 /* UIImageView.swift */,
+				4CD1FDE422FC8334009D3241 /* UIButton.swift */,
+				4C873F1A23002DAA00E03436 /* Font.swift */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		4C873F1D23002E0D00E03436 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				4C873F1623002B4700E03436 /* Completions.swift */,
+				4C873F1823002D7200E03436 /* Weak.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		4C873F222300305500E03436 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				4C873F202300305200E03436 /* SnappingLayout.swift */,
+			);
+			path = Layout;
+			sourceTree = "<group>";
+		};
+		4C873F2323003EB600E03436 /* Custom */ = {
+			isa = PBXGroup;
+			children = (
+				4C873F1E23002F7800E03436 /* HorizontalSnappingController.swift */,
+			);
+			path = Custom;
+			sourceTree = "<group>";
+		};
 		4CA089A822F86B4F00F9BB7A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				4CD1FDE122FACC9D009D3241 /* Base */,
 				4C0BFBBC22FA0F86006AA41E /* Apps */,
 				4C0BFBBB22FA0F7B006AA41E /* Search */,
+				4C873F2323003EB600E03436 /* Custom */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -179,6 +228,7 @@
 			children = (
 				4CD1FDE822FD83A0009D3241 /* Headers */,
 				4CA089B222F8737E00F9BB7A /* Cells */,
+				4C873F222300305500E03436 /* Layout */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -195,11 +245,8 @@
 		4CA089B322F87B5B00F9BB7A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				4CA089B422F87B7600F9BB7A /* UIView+Layout.swift */,
-				4CA089B622F87F9A00F9BB7A /* VerticalStackView.swift */,
-				4CA580C722F9AD88001951CB /* UILabel.swift */,
-				4CD1FDE222FC8241009D3241 /* UIImageView.swift */,
-				4CD1FDE422FC8334009D3241 /* UIButton.swift */,
+				4C873F1C23002DF800E03436 /* Interface */,
+				4C873F1D23002E0D00E03436 /* General */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -381,20 +428,25 @@
 				4CD1FDE322FC8241009D3241 /* UIImageView.swift in Sources */,
 				4CA089BD22F8CB1D00F9BB7A /* Service.swift in Sources */,
 				4CD1FDE522FC8334009D3241 /* UIButton.swift in Sources */,
+				4C873F1F23002F7800E03436 /* HorizontalSnappingController.swift in Sources */,
 				4CA089BA22F8C29C00F9BB7A /* SearchResult.swift in Sources */,
 				4C0BFBB822FA0DC1006AA41E /* AppsPageController.swift in Sources */,
 				4CA089B722F87F9A00F9BB7A /* VerticalStackView.swift in Sources */,
 				4C0BFBBA22FA0EE7006AA41E /* BaseListController.swift in Sources */,
+				4C873F1923002D7200E03436 /* Weak.swift in Sources */,
 				4C0BFBC222FACAA9006AA41E /* AppRowCell.swift in Sources */,
+				4C873F212300305200E03436 /* SnappingLayout.swift in Sources */,
 				4CA580C822F9AD88001951CB /* UILabel.swift in Sources */,
 				4CD1FDEA22FD89DB009D3241 /* AppsHeaderHorizontalController.swift in Sources */,
 				4CD1FDE722FD8396009D3241 /* AppsPageHeader.swift in Sources */,
 				4C0BFBBE22FA1153006AA41E /* AppsGroupCell.swift in Sources */,
+				4C873F1723002B4700E03436 /* Completions.swift in Sources */,
 				4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */,
 				4C7E8F5822FDEED100F92848 /* HeaderApp.swift in Sources */,
 				4CA089B122F8735400F9BB7A /* SearchResultCell.swift in Sources */,
 				4CD1FDEE22FD9D43009D3241 /* AppGroup.swift in Sources */,
 				4CD1FDEC22FD93C6009D3241 /* AppsHeaderCell.swift in Sources */,
+				4C873F1B23002DAA00E03436 /* Font.swift in Sources */,
 				4CA089AC22F86BBE00F9BB7A /* SearchPageController.swift in Sources */,
 				4C0BFBC022FA179E006AA41E /* AppsHorizontalController.swift in Sources */,
 				4CA089B522F87B7600F9BB7A /* UIView+Layout.swift in Sources */,

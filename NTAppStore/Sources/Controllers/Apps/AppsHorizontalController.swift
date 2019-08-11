@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AppsHorizontalController: BaseListController {
+class AppsHorizontalController: HorizontalSnappingController {
     
     fileprivate let cellId = "AppRowCell"
     fileprivate let topBottomPadding: CGFloat = 12
@@ -25,10 +25,6 @@ class AppsHorizontalController: BaseListController {
     
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
-        
-        if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-        }
     }
     
     fileprivate func registerCells() {

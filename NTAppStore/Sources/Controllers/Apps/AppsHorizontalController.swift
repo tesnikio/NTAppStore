@@ -15,6 +15,7 @@ class AppsHorizontalController: HorizontalSnappingController {
     fileprivate let lineSpacing: CGFloat = 10
     fileprivate let widthPadding: CGFloat = 48
     var appGroup: AppGroup?
+    var didSelectHandler: ((FeedResult) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,15 @@ extension AppsHorizontalController {
         return cell
     }
 }
+
+//MARK: - UICollectionViewDelegate
+extension AppsHorizontalController {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let app = appGroup?.feed.results[indexPath.item] else { return }
+        didSelectHandler?(app)
+    }
+}
+
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {

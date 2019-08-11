@@ -109,6 +109,12 @@ extension AppsPageController {
             cell.sectionTitleLabel.text = appGroup.feed.title
             cell.horizontalViewController.appGroup = appGroup
             cell.horizontalViewController.collectionView.reloadData()
+            cell.horizontalViewController.didSelectHandler = { [weak self] feedResult in
+                let appDetailVC = AppDetailController()
+                appDetailVC.navigationItem.title = feedResult.name
+                appDetailVC.appId = feedResult.id
+                self?.navigationController?.pushViewController(appDetailVC, animated: true)
+            }
             return cell
         }
         

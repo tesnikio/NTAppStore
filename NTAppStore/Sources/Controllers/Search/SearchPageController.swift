@@ -75,7 +75,7 @@ extension SearchPageController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-//MARK: - UICollectionViewDelegateFlowLayout
+//MARK: - UISearchBarDelegate
 extension SearchPageController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

@@ -50,19 +50,19 @@ class AppsPageController: BaseListController {
         let dispatchGroup = DispatchGroup()
         
         dispatchGroup.enter()
-        Service.shared.fetchByType(type: .newGames) { (appGroup, error) in
+        Service.shared.fetchAppGroupByType(type: .newGames) { (appGroup, error) in
             dispatchGroup.leave()
             appGroup1 = appGroup
         }
         
         dispatchGroup.enter()
-        Service.shared.fetchByType(type: .topGrossing) { (appGroup, error) in
+        Service.shared.fetchAppGroupByType(type: .topGrossing) { (appGroup, error) in
             dispatchGroup.leave()
             appGroup2 = appGroup
         }
         
         dispatchGroup.enter()
-        Service.shared.fetchByType(type: .topFree) { (appGroup, error) in
+        Service.shared.fetchAppGroupByType(type: .topFree) { (appGroup, error) in
             dispatchGroup.leave()
             appGroup3 = appGroup
         }

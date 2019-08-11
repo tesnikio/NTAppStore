@@ -10,7 +10,7 @@ import UIKit
 
 class SearchResultCell: UICollectionViewCell {
     
-    var appResult: Result! {
+    var appResult: AppSearchResult! {
         didSet {
             nameLabel.text = appResult.trackName
             categoryLabel.text = appResult.primaryGenreName

@@ -14,7 +14,7 @@ class SearchPageController: BaseListController {
     fileprivate let cellId = "SearchResultCell"
     fileprivate let searchController = UISearchController(searchResultsController: nil)
     fileprivate var timer: Timer?
-    fileprivate var appResults = [Result]()
+    fileprivate var appResults = [AppSearchResult]()
     fileprivate let placeholderSearchLabel = UILabel(text: "No search results",
                                                      font: .systemFont(ofSize: 20, weight: .medium),
                                                      textColor: .lightGray,
@@ -81,13 +81,14 @@ extension SearchPageController: UISearchBarDelegate {
         
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { _ in
-            Service.shared.fetchApps(searchTerm: searchText) { [weak self] results, error in
+            Service.shared.fetchAppsSearch(searchTerm: searchText) { [weak self] searchData, error in
                 if let error = error {
                     print("Failed to search apps: ", error)
                     return
                 }
                 guard let self = self else { return }
-                self.appResults = results
+                guard let searchData = searchData else { return }
+                self.appResults = searchData.results
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }

@@ -19,58 +19,22 @@ final class Service {
     
     static let shared = Service()
     
-    func fetchApps(searchTerm: String, completion: @escaping ([Result], Error?) -> ()) {
+    func fetchAppsSearch(searchTerm: String, completion: @escaping (SearchResult?, Error?) -> ()) {
         let urlString = "https://itunes.apple.com/search?term=\(searchTerm)&entity=software"
-        guard let url = URL(string: urlString) else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                print("Failed to fetch apps: ", error)
-                completion([], error)
-                return
-            }
-            
-            guard let data = data else { return }
-            
-            do {
-                let searchResult = try JSONDecoder().decode(SearchResult.self, from: data)
-                completion(searchResult.results, nil)
-            } catch let jsonError {
-                print("Failed to fetch apps: ", jsonError)
-                completion([], jsonError)
-            }
-            
-            }.resume()
+        fetchGenericJSONData(urlString: urlString, completion: completion)
     }
     
-    func createUrlForFeedType(type: FeedType) -> URL? {
-        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/\(type.rawValue)/all/25/explicit.json"
-        return URL(string: urlString)
-    }
-    
-    func fetchByType(type: FeedType , completion: @escaping (AppGroup?, Error?) -> ()) {
-        guard let url = createUrlForFeedType(type: type) else { return }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if let error = error {
-                completion(nil, error)
-                return
-            }
-            
-            guard let data = data else { return }
-            
-            do {
-                let appGroup = try JSONDecoder().decode(AppGroup.self, from: data)
-                completion(appGroup, nil)
-            } catch let jsonError {
-                print("Failed to fetch apps: ", jsonError)
-            }
-            
-        }.resume()
+    func fetchAppGroupByType(type: FeedType , completion: @escaping (AppGroup?, Error?) -> ()) {
+        let urlString = createUrlStringForFeedType(type: type)
+        fetchGenericJSONData(urlString: urlString, completion: completion)
     }
     
     func fetchHeaders(completion: @escaping ([HeaderApp]?, Error?) -> ()) {
         let urlString = "https://api.letsbuildthatapp.com/appstore/social"
+        fetchGenericJSONData(urlString: urlString, completion: completion)
+    }
+    
+    func fetchGenericJSONData<T: Decodable>(urlString: String, completion: @escaping (T?, Error?) -> ()) {
         guard let url = URL(string: urlString) else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -82,11 +46,16 @@ final class Service {
             guard let data = data else { return }
             
             do {
-                let headers = try JSONDecoder().decode([HeaderApp].self, from: data)
-                completion(headers, nil)
+                let result = try JSONDecoder().decode(T.self, from: data)
+                completion(result, nil)
             } catch let jsonError {
                 print("Failed to fetch apps: ", jsonError)
             }
         }.resume()
+    }
+    
+    func createUrlStringForFeedType(type: FeedType) -> String {
+        let urlString = "https://rss.itunes.apple.com/api/v1/us/ios-apps/\(type.rawValue)/all/25/explicit.json"
+        return urlString
     }
 }

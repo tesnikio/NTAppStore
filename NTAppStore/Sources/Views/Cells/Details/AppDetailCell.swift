@@ -29,6 +29,8 @@ class AppDetailCell: UICollectionViewCell {
     
     let releaseNotesLabel = UILabel(text: "Release Notes", font: .systemFont(ofSize: 18), numberOfLines: 0)
     
+    let separatorView = SeparatorView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -38,10 +40,13 @@ class AppDetailCell: UICollectionViewCell {
         
         priceButton.backgroundColor = #colorLiteral(red: 0, green: 0.4784313725, blue: 0.937254902, alpha: 1)
         priceButton.constrainHeight(constant: 32)
-        priceButton.layer.cornerRadius = 32 / 2
+        priceButton.layer.cornerRadius = 16
         priceButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         priceButton.setTitleColor(.white, for: .normal)
         priceButton.constrainWidth(constant: 80)
+        
+        separatorView.width = 0.3
+        separatorView.color = .lightGray
         
         let stackView = VerticalStackView(arrangedSubviews: [
             UIStackView(arrangedSubviews: [
@@ -53,7 +58,8 @@ class AppDetailCell: UICollectionViewCell {
                     ], spacing: 12)
                 ], customSpacing: 20),
             whatsNewLabel,
-            releaseNotesLabel
+            releaseNotesLabel,
+            separatorView,
             ], spacing: 16)
         addSubview(stackView)
         stackView.fillSuperview(padding: .init(top: 20, left: 20, bottom: 20, right: 20))

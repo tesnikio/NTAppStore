@@ -10,7 +10,8 @@ import UIKit
 
 class AppDetailController: BaseListController {
     
-    fileprivate let cellId = "AppDetailCell"
+    fileprivate let appDetailId = "AppDetailCell"
+    fileprivate let previewId = "PreviewCell"
     fileprivate var app: AppSearchResult?
     
     var appId: String! {
@@ -38,7 +39,8 @@ class AppDetailController: BaseListController {
     }
     
     fileprivate func registerCells() {
-        collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(AppDetailCell.self, forCellWithReuseIdentifier: appDetailId)
+        collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: previewId)
     }
 }
 
@@ -46,13 +48,23 @@ class AppDetailController: BaseListController {
 extension AppDetailController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppDetailCell
-        cell.app = app
-        return cell
+        
+        switch indexPath.item {
+        case 0:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: appDetailId, for: indexPath) as! AppDetailCell
+            cell.app = app
+            return cell
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: previewId, for: indexPath) as! PreviewCell
+            cell.screenshotsController.app = app
+            return cell
+        default:
+            return UICollectionViewCell()
+        }
     }
 }
 
@@ -60,12 +72,21 @@ extension AppDetailController {
 extension AppDetailController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let currentCell = AppDetailCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
-        currentCell.app = app
-        currentCell.layoutIfNeeded()
+        switch indexPath.item {
+        case 0:
+            let currentCell = AppDetailCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
+            currentCell.app = app
+            currentCell.layoutIfNeeded()
+            
+            let estimatedSize = currentCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+            
+            return .init(width: view.frame.width, height: estimatedSize.height)
+        case 1:
+            return .init(width: view.frame.width, height: 500)
+        default:
+            return .zero
+        }
         
-        let estimatedSize = currentCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
         
-        return .init(width: view.frame.width, height: estimatedSize.height)
     }
 }

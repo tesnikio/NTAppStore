@@ -11,12 +11,16 @@ import UIKit
 class AppDetailController: BaseListController {
     
     fileprivate let cellId = "AppDetailCell"
+    fileprivate var app: AppSearchResult?
     
     var appId: String! {
         didSet {
             let urlString = "https://itunes.apple.com/lookup?id=\(appId ?? "")"
-            Service.shared.fetchGenericJSONData(urlString: urlString) { (result: SearchResult?, error) in
-                //print(result?.results.first?.description)
+            Service.shared.fetchGenericJSONData(urlString: urlString) { [weak self] (result: SearchResult?, error) in
+                self?.app = result?.results.first
+                DispatchQueue.main.async {
+                    self?.collectionView.reloadData()
+                }
             }
         }
     }
@@ -46,7 +50,8 @@ extension AppDetailController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppDetailCell
+        cell.app = app
         return cell
     }
 }
@@ -54,6 +59,13 @@ extension AppDetailController {
 //MARK: - UICollectionViewDelegateFlowLayout
 extension AppDetailController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: 300)
+        
+        let currentCell = AppDetailCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
+        currentCell.app = app
+        currentCell.layoutIfNeeded()
+        
+        let estimatedSize = currentCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
+        
+        return .init(width: view.frame.width, height: estimatedSize.height)
     }
 }

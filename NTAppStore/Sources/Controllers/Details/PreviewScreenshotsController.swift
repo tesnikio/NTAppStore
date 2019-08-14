@@ -45,13 +45,6 @@ extension PreviewScreenshotsController {
     }
 }
 
-//MARK: - UICollectionViewDelegate
-extension PreviewScreenshotsController {
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
-}
-
 //MARK: - UICollectionViewDelegateFlowLayout
 extension PreviewScreenshotsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

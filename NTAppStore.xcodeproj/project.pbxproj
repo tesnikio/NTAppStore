@@ -38,6 +38,10 @@
 		4CA5E15C2302EBA4009B862C /* PreviewScreenshotsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E15B2302EBA4009B862C /* PreviewScreenshotsController.swift */; };
 		4CA5E15E2302ED0D009B862C /* ScreenshotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E15D2302ED0D009B862C /* ScreenshotCell.swift */; };
 		4CA5E1602302F5AA009B862C /* SeparatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E15F2302F5AA009B862C /* SeparatorView.swift */; };
+		4CA5E1662303EFB8009B862C /* ReviewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E1652303EFB8009B862C /* ReviewsCell.swift */; };
+		4CA5E1682303F24F009B862C /* ReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E1672303F24F009B862C /* ReviewsController.swift */; };
+		4CA5E16A2303F5F3009B862C /* ReviewRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E1692303F5F3009B862C /* ReviewRowCell.swift */; };
+		4CA5E16C2303FEE6009B862C /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E16B2303FEE6009B862C /* Review.swift */; };
 		4CD1FDE322FC8241009D3241 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE222FC8241009D3241 /* UIImageView.swift */; };
 		4CD1FDE522FC8334009D3241 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE422FC8334009D3241 /* UIButton.swift */; };
 		4CD1FDE722FD8396009D3241 /* AppsPageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE622FD8396009D3241 /* AppsPageHeader.swift */; };
@@ -80,6 +84,10 @@
 		4CA5E15B2302EBA4009B862C /* PreviewScreenshotsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScreenshotsController.swift; sourceTree = "<group>"; };
 		4CA5E15D2302ED0D009B862C /* ScreenshotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenshotCell.swift; sourceTree = "<group>"; };
 		4CA5E15F2302F5AA009B862C /* SeparatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeparatorView.swift; sourceTree = "<group>"; };
+		4CA5E1652303EFB8009B862C /* ReviewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsCell.swift; sourceTree = "<group>"; };
+		4CA5E1672303F24F009B862C /* ReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsController.swift; sourceTree = "<group>"; };
+		4CA5E1692303F5F3009B862C /* ReviewRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRowCell.swift; sourceTree = "<group>"; };
+		4CA5E16B2303FEE6009B862C /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		4CD1FDE222FC8241009D3241 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4CD1FDE422FC8334009D3241 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		4CD1FDE622FD8396009D3241 /* AppsPageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsPageHeader.swift; sourceTree = "<group>"; };
@@ -209,6 +217,7 @@
 			children = (
 				4C873F2523004DFD00E03436 /* AppDetailController.swift */,
 				4CA5E15B2302EBA4009B862C /* PreviewScreenshotsController.swift */,
+				4CA5E1672303F24F009B862C /* ReviewsController.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -219,6 +228,8 @@
 				4C873F2723007D1200E03436 /* AppDetailCell.swift */,
 				4CA5E1592302E9A4009B862C /* PreviewCell.swift */,
 				4CA5E15D2302ED0D009B862C /* ScreenshotCell.swift */,
+				4CA5E1652303EFB8009B862C /* ReviewsCell.swift */,
+				4CA5E1692303F5F3009B862C /* ReviewRowCell.swift */,
 			);
 			path = Details;
 			sourceTree = "<group>";
@@ -294,6 +305,7 @@
 				4CA089B922F8C29C00F9BB7A /* SearchResult.swift */,
 				4CD1FDED22FD9D43009D3241 /* AppGroup.swift */,
 				4C7E8F5722FDEED100F92848 /* HeaderApp.swift */,
+				4CA5E16B2303FEE6009B862C /* Review.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -461,6 +473,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CA5E16A2303F5F3009B862C /* ReviewRowCell.swift in Sources */,
 				4CA5E1602302F5AA009B862C /* SeparatorView.swift in Sources */,
 				4C873F2623004DFD00E03436 /* AppDetailController.swift in Sources */,
 				4C598E3722F85E880076804A /* AppDelegate.swift in Sources */,
@@ -477,13 +490,16 @@
 				4C873F1923002D7200E03436 /* Weak.swift in Sources */,
 				4CA5E15E2302ED0D009B862C /* ScreenshotCell.swift in Sources */,
 				4C0BFBC222FACAA9006AA41E /* AppRowCell.swift in Sources */,
+				4CA5E16C2303FEE6009B862C /* Review.swift in Sources */,
 				4C873F212300305200E03436 /* SnappingLayout.swift in Sources */,
 				4CA580C822F9AD88001951CB /* UILabel.swift in Sources */,
 				4CD1FDEA22FD89DB009D3241 /* AppsHeaderHorizontalController.swift in Sources */,
+				4CA5E1682303F24F009B862C /* ReviewsController.swift in Sources */,
 				4CD1FDE722FD8396009D3241 /* AppsPageHeader.swift in Sources */,
 				4C0BFBBE22FA1153006AA41E /* AppsGroupCell.swift in Sources */,
 				4C873F1723002B4700E03436 /* Completions.swift in Sources */,
 				4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */,
+				4CA5E1662303EFB8009B862C /* ReviewsCell.swift in Sources */,
 				4C7E8F5822FDEED100F92848 /* HeaderApp.swift in Sources */,
 				4CA089B122F8735400F9BB7A /* SearchResultCell.swift in Sources */,
 				4CD1FDEE22FD9D43009D3241 /* AppGroup.swift in Sources */,

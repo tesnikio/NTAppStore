@@ -11,7 +11,6 @@ import UIKit
 class PreviewCell: UICollectionViewCell {
     
     let previewLabel = UILabel(text: "Preview", font: .boldSystemFont(ofSize: 22))
-    let separatorView = SeparatorView()
     
     let screenshotsController = PreviewScreenshotsController()
     

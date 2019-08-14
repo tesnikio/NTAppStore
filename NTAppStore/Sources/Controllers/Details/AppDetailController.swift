@@ -11,33 +11,19 @@ import UIKit
 class AppDetailController: BaseListController {
     
     fileprivate let appDetailId = "AppDetailCell"
-    fileprivate let previewId = "PreviewCell"
-    fileprivate let reviewId = "ReviewCell"
+    fileprivate let previewId   = "PreviewCell"
+    fileprivate let reviewId    = "ReviewCell"
+    fileprivate let appId: String
     fileprivate var app: AppSearchResult?
     fileprivate var reviews: Review?
     
-    var appId: String! {
-        didSet {
-            let urlString = "https://itunes.apple.com/lookup?id=\(appId ?? "")"
-            Service.shared.fetchGenericJSONData(urlString: urlString) { [weak self] (result: SearchResult?, error) in
-                self?.app = result?.results.first
-                DispatchQueue.main.async {
-                    self?.collectionView.reloadData()
-                }
-            }
-            
-            let reviewsUrl = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId ?? "")/sortby=mostrecent/json?l=en&cc=us"
-            Service.shared.fetchGenericJSONData(urlString: reviewsUrl) { [weak self] (reviews: Review?, error) in
-                if let error = error {
-                    print("Failed to fetch reviews: ", error)
-                    return
-                }
-                self?.reviews = reviews
-                DispatchQueue.main.async {
-                    self?.collectionView.reloadData()
-                }
-            }
-        }
+    init(appId: String) {
+        self.appId = appId
+        super.init()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func viewDidLoad() {
@@ -45,6 +31,7 @@ class AppDetailController: BaseListController {
         
         setupViews()
         registerCells()
+        fetchAppInfo()
     }
     
     fileprivate func setupViews() {
@@ -57,11 +44,36 @@ class AppDetailController: BaseListController {
         collectionView.register(PreviewCell.self, forCellWithReuseIdentifier: previewId)
         collectionView.register(ReviewsCell.self, forCellWithReuseIdentifier: reviewId)
     }
+    
+    fileprivate func fetchAppInfo() {
+        let urlString = "https://itunes.apple.com/lookup?id=\(appId)"
+        Service.shared.fetchGenericJSONData(urlString: urlString) { [weak self] (result: SearchResult?, error) in
+            if let error = error {
+                print("Failed to fetch data: ", error)
+                return
+            }
+            self?.app = result?.results.first
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+        
+        let reviewsUrl = "https://itunes.apple.com/rss/customerreviews/page=1/id=\(appId)/sortby=mostrecent/json?l=en&cc=us"
+        Service.shared.fetchGenericJSONData(urlString: reviewsUrl) { [weak self] (reviews: Review?, error) in
+            if let error = error {
+                print("Failed to fetch reviews: ", error)
+                return
+            }
+            self?.reviews = reviews
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+        }
+    }
 }
 
 //MARK: - UICollectionViewDataSource
 extension AppDetailController {
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
     }

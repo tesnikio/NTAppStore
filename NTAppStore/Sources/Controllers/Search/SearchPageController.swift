@@ -13,6 +13,7 @@ class SearchPageController: BaseListController {
     
     fileprivate let cellId = "SearchResultCell"
     fileprivate let searchController = UISearchController(searchResultsController: nil)
+    fileprivate let itemHeight: CGFloat = 350
     fileprivate var timer: Timer?
     fileprivate var appResults = [AppSearchResult]()
     fileprivate let placeholderSearchLabel = UILabel(text: "No search results",
@@ -31,7 +32,6 @@ class SearchPageController: BaseListController {
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
         collectionView.addSubview(placeholderSearchLabel)
-        placeholderSearchLabel.translatesAutoresizingMaskIntoConstraints = false
         placeholderSearchLabel.centerXInSuperview()
         placeholderSearchLabel.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 200).isActive = true
         searchController.searchBar.placeholder = "Enter the app name"
@@ -52,7 +52,6 @@ class SearchPageController: BaseListController {
 
 //MARK: - UICollectionViewDataSource
 extension SearchPageController {
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         placeholderSearchLabel.isHidden = appResults.count != 0
         return appResults.count
@@ -68,10 +67,19 @@ extension SearchPageController {
     }
 }
 
+//MARK: - UICollectionViewDelegate
+extension SearchPageController {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let appResult = appResults[indexPath.item]
+        let appDetailController = AppDetailController(appId: String(appResult.trackId))
+        navigationController?.pushViewController(appDetailController, animated: true)
+    }
+}
+
 //MARK: - UICollectionViewDelegateFlowLayout
 extension SearchPageController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: 350)
+        return .init(width: view.frame.width, height: itemHeight)
     }
 }
 

@@ -20,21 +20,16 @@ class AppDetailCell: UICollectionViewCell {
     }
     
     let appIconImageView = UIImageView(cornerRadius: 24)
-    
     let nameLabel = UILabel(text: "App Name", font: .boldSystemFont(ofSize: 24), numberOfLines: 2)
-    
     let priceButton = UIButton(title: "$4.99")
-    
     let whatsNewLabel = UILabel(text: "What's New", font: .boldSystemFont(ofSize: 20))
-    
     let releaseNotesLabel = UILabel(text: "Release Notes", font: .systemFont(ofSize: 18), numberOfLines: 0)
-    
     let separatorView = SeparatorView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        appIconImageView.backgroundColor = .red
+        appIconImageView.backgroundColor = .white
         appIconImageView.constrainWidth(constant: 140)
         appIconImageView.constrainHeight(constant: 140)
         

@@ -10,10 +10,10 @@ import UIKit
 
 class AppsPageController: BaseListController {
     
-    fileprivate let cellId = "AppsGroupCell"
+    fileprivate let cellId   = "AppsGroupCell"
     fileprivate let headerId = "AppsPageHeader"
-    fileprivate var groups = [AppGroup]()
-    fileprivate var headers = [HeaderApp]()
+    fileprivate var groups   = [AppGroup]()
+    fileprivate var headers  = [HeaderApp]()
     fileprivate let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .whiteLarge)
         indicator.color = .gray
@@ -110,9 +110,8 @@ extension AppsPageController {
             cell.horizontalViewController.appGroup = appGroup
             cell.horizontalViewController.collectionView.reloadData()
             cell.horizontalViewController.didSelectHandler = { [weak self] feedResult in
-                let appDetailVC = AppDetailController()
+                let appDetailVC = AppDetailController(appId: feedResult.id)
                 appDetailVC.navigationItem.title = feedResult.name
-                appDetailVC.appId = feedResult.id
                 self?.navigationController?.pushViewController(appDetailVC, animated: true)
             }
             return cell

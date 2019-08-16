@@ -42,6 +42,10 @@
 		4CA5E1682303F24F009B862C /* ReviewsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E1672303F24F009B862C /* ReviewsController.swift */; };
 		4CA5E16A2303F5F3009B862C /* ReviewRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E1692303F5F3009B862C /* ReviewRowCell.swift */; };
 		4CA5E16C2303FEE6009B862C /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA5E16B2303FEE6009B862C /* Review.swift */; };
+		4CAE7FD72306B78F008F5298 /* TodayPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE7FD62306B78F008F5298 /* TodayPageController.swift */; };
+		4CAE7FDA2306BC47008F5298 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE7FD92306BC47008F5298 /* TodayCell.swift */; };
+		4CAE7FDC2306CD97008F5298 /* TodayFullscreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE7FDB2306CD97008F5298 /* TodayFullscreenController.swift */; };
+		4CAE7FDE2306D452008F5298 /* TodayFullscreenDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE7FDD2306D452008F5298 /* TodayFullscreenDescriptionCell.swift */; };
 		4CD1FDE322FC8241009D3241 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE222FC8241009D3241 /* UIImageView.swift */; };
 		4CD1FDE522FC8334009D3241 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE422FC8334009D3241 /* UIButton.swift */; };
 		4CD1FDE722FD8396009D3241 /* AppsPageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE622FD8396009D3241 /* AppsPageHeader.swift */; };
@@ -88,6 +92,10 @@
 		4CA5E1672303F24F009B862C /* ReviewsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewsController.swift; sourceTree = "<group>"; };
 		4CA5E1692303F5F3009B862C /* ReviewRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewRowCell.swift; sourceTree = "<group>"; };
 		4CA5E16B2303FEE6009B862C /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
+		4CAE7FD62306B78F008F5298 /* TodayPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPageController.swift; sourceTree = "<group>"; };
+		4CAE7FD92306BC47008F5298 /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
+		4CAE7FDB2306CD97008F5298 /* TodayFullscreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFullscreenController.swift; sourceTree = "<group>"; };
+		4CAE7FDD2306D452008F5298 /* TodayFullscreenDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFullscreenDescriptionCell.swift; sourceTree = "<group>"; };
 		4CD1FDE222FC8241009D3241 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4CD1FDE422FC8334009D3241 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		4CD1FDE622FD8396009D3241 /* AppsPageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsPageHeader.swift; sourceTree = "<group>"; };
@@ -237,10 +245,11 @@
 		4CA089A822F86B4F00F9BB7A /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				4C873F2423004DE100E03436 /* Details */,
 				4CD1FDE122FACC9D009D3241 /* Base */,
+				4CAE7FD52306B750008F5298 /* Today */,
 				4C0BFBBC22FA0F86006AA41E /* Apps */,
 				4C0BFBBB22FA0F7B006AA41E /* Search */,
+				4C873F2423004DE100E03436 /* Details */,
 				4C873F2323003EB600E03436 /* Custom */,
 			);
 			path = Controllers;
@@ -283,8 +292,9 @@
 		4CA089B222F8737E00F9BB7A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4C0BFBC322FACAAD006AA41E /* Search */,
+				4CAE7FD82306BC23008F5298 /* Today */,
 				4CD1FDE022FACAEE009D3241 /* Apps */,
+				4C0BFBC322FACAAD006AA41E /* Search */,
 				4C873F2923007D1600E03436 /* Details */,
 			);
 			path = Cells;
@@ -316,6 +326,24 @@
 				4CA089BC22F8CB1D00F9BB7A /* Service.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		4CAE7FD52306B750008F5298 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				4CAE7FD62306B78F008F5298 /* TodayPageController.swift */,
+				4CAE7FDB2306CD97008F5298 /* TodayFullscreenController.swift */,
+			);
+			path = Today;
+			sourceTree = "<group>";
+		};
+		4CAE7FD82306BC23008F5298 /* Today */ = {
+			isa = PBXGroup;
+			children = (
+				4CAE7FD92306BC47008F5298 /* TodayCell.swift */,
+				4CAE7FDD2306D452008F5298 /* TodayFullscreenDescriptionCell.swift */,
+			);
+			path = Today;
 			sourceTree = "<group>";
 		};
 		4CD1FDE022FACAEE009D3241 /* Apps */ = {
@@ -484,6 +512,7 @@
 				4C873F1F23002F7800E03436 /* HorizontalSnappingController.swift in Sources */,
 				4CA5E15A2302E9A4009B862C /* PreviewCell.swift in Sources */,
 				4CA089BA22F8C29C00F9BB7A /* SearchResult.swift in Sources */,
+				4CAE7FDA2306BC47008F5298 /* TodayCell.swift in Sources */,
 				4C0BFBB822FA0DC1006AA41E /* AppsPageController.swift in Sources */,
 				4CA089B722F87F9A00F9BB7A /* VerticalStackView.swift in Sources */,
 				4C0BFBBA22FA0EE7006AA41E /* BaseListController.swift in Sources */,
@@ -502,9 +531,12 @@
 				4CA5E1662303EFB8009B862C /* ReviewsCell.swift in Sources */,
 				4C7E8F5822FDEED100F92848 /* HeaderApp.swift in Sources */,
 				4CA089B122F8735400F9BB7A /* SearchResultCell.swift in Sources */,
+				4CAE7FDE2306D452008F5298 /* TodayFullscreenDescriptionCell.swift in Sources */,
 				4CD1FDEE22FD9D43009D3241 /* AppGroup.swift in Sources */,
 				4CD1FDEC22FD93C6009D3241 /* AppsHeaderCell.swift in Sources */,
 				4C873F1B23002DAA00E03436 /* Font.swift in Sources */,
+				4CAE7FD72306B78F008F5298 /* TodayPageController.swift in Sources */,
+				4CAE7FDC2306CD97008F5298 /* TodayFullscreenController.swift in Sources */,
 				4CA089AC22F86BBE00F9BB7A /* SearchPageController.swift in Sources */,
 				4C0BFBC022FA179E006AA41E /* AppsHorizontalController.swift in Sources */,
 				4C873F2823007D1200E03436 /* AppDetailCell.swift in Sources */,

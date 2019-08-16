@@ -46,6 +46,7 @@
 		4CAE7FDA2306BC47008F5298 /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE7FD92306BC47008F5298 /* TodayCell.swift */; };
 		4CAE7FDC2306CD97008F5298 /* TodayFullscreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE7FDB2306CD97008F5298 /* TodayFullscreenController.swift */; };
 		4CAE7FDE2306D452008F5298 /* TodayFullscreenDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE7FDD2306D452008F5298 /* TodayFullscreenDescriptionCell.swift */; };
+		4CAE7FE02307032E008F5298 /* TodayHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAE7FDF2307032E008F5298 /* TodayHeaderCell.swift */; };
 		4CD1FDE322FC8241009D3241 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE222FC8241009D3241 /* UIImageView.swift */; };
 		4CD1FDE522FC8334009D3241 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE422FC8334009D3241 /* UIButton.swift */; };
 		4CD1FDE722FD8396009D3241 /* AppsPageHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CD1FDE622FD8396009D3241 /* AppsPageHeader.swift */; };
@@ -96,6 +97,7 @@
 		4CAE7FD92306BC47008F5298 /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
 		4CAE7FDB2306CD97008F5298 /* TodayFullscreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFullscreenController.swift; sourceTree = "<group>"; };
 		4CAE7FDD2306D452008F5298 /* TodayFullscreenDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayFullscreenDescriptionCell.swift; sourceTree = "<group>"; };
+		4CAE7FDF2307032E008F5298 /* TodayHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayHeaderCell.swift; sourceTree = "<group>"; };
 		4CD1FDE222FC8241009D3241 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		4CD1FDE422FC8334009D3241 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		4CD1FDE622FD8396009D3241 /* AppsPageHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsPageHeader.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 			children = (
 				4CAE7FD92306BC47008F5298 /* TodayCell.swift */,
 				4CAE7FDD2306D452008F5298 /* TodayFullscreenDescriptionCell.swift */,
+				4CAE7FDF2307032E008F5298 /* TodayHeaderCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 			files = (
 				4CA5E16A2303F5F3009B862C /* ReviewRowCell.swift in Sources */,
 				4CA5E1602302F5AA009B862C /* SeparatorView.swift in Sources */,
+				4CAE7FE02307032E008F5298 /* TodayHeaderCell.swift in Sources */,
 				4C873F2623004DFD00E03436 /* AppDetailController.swift in Sources */,
 				4C598E3722F85E880076804A /* AppDelegate.swift in Sources */,
 				4CD1FDE322FC8241009D3241 /* UIImageView.swift in Sources */,

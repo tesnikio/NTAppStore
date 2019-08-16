@@ -12,7 +12,12 @@ class TodayPageController: BaseListController {
     
     fileprivate let todayCellId = "TodayCell"
     var startingFrame: CGRect?
-    var todayFullscreenController: UIViewController!
+    var todayFullscreenController: TodayFullscreenController!
+    var topConstraint: NSLayoutConstraint?
+    var leadingConstraint: NSLayoutConstraint?
+    var widthConstraint: NSLayoutConstraint?
+    var heightConstraint: NSLayoutConstraint?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +37,18 @@ class TodayPageController: BaseListController {
     
     @objc func handleDismiss(gesture: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            gesture.view?.frame = self.startingFrame!
+            
+            self.todayFullscreenController.tableView.contentOffset = .zero
+            
+            guard let startingFrame = self.startingFrame else { return }
+
+            self.topConstraint?.constant = startingFrame.origin.y
+            self.leadingConstraint?.constant = startingFrame.origin.x
+            self.widthConstraint?.constant = startingFrame.width
+            self.heightConstraint?.constant = startingFrame.height
+            
+            self.view.layoutIfNeeded()
+            
             self.tabBarController?.tabBar.transform = .identity
         }) { (_) in
             gesture.view?.removeFromSuperview()
@@ -67,14 +83,30 @@ extension TodayPageController {
         self.todayFullscreenController = vc
         
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
-        
         guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
+        
         self.startingFrame = startingFrame
         
-        vc.view.frame = startingFrame
+        vc.view.translatesAutoresizingMaskIntoConstraints = false
+        
+        topConstraint = vc.view.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
+        leadingConstraint = vc.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
+        widthConstraint = vc.view.widthAnchor.constraint(equalToConstant: startingFrame.width)
+        heightConstraint = vc.view.heightAnchor.constraint(equalToConstant: startingFrame.height)
+        
+        [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach { $0?.isActive = true }
+        
+        self.view.layoutIfNeeded()
         
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            vc.view.frame = self.view.frame
+            
+            self.topConstraint?.constant = 0
+            self.leadingConstraint?.constant = 0
+            self.widthConstraint?.constant = self.view.frame.width
+            self.heightConstraint?.constant = self.view.frame.height
+            
+            self.view.layoutIfNeeded()
+            
             self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
         }, completion: nil)
     }

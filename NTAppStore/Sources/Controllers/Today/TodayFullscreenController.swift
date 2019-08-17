@@ -9,7 +9,8 @@
 import UIKit
 
 class TodayFullscreenController: UITableViewController {
-
+    
+    var dismissHandler: (() -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,15 +33,17 @@ extension TodayFullscreenController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.item {
         case 0:
-            return TodayHeaderCell()
+            let cell = TodayHeaderCell()
+            cell.closeButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+            return cell
         case 1:
-            return TodayFullscreenDescriptionCell()
+            let cell = TodayFullscreenDescriptionCell()
+            return cell
         default:
             return UITableViewCell()
         }
     }
 }
-
 
 //MARK: - UITableViewDelegate
 extension TodayFullscreenController {
@@ -51,5 +54,13 @@ extension TodayFullscreenController {
         default:
             return super.tableView(tableView, heightForRowAt: indexPath)
         }
+    }
+}
+
+//MARK: - Actions
+extension TodayFullscreenController {
+    @objc func handleDismiss(button: UIButton) {
+        button.isHidden = true
+        dismissHandler?()
     }
 }

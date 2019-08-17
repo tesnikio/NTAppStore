@@ -21,7 +21,6 @@ class TodayPageController: BaseListController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         registerCells()
         setupViews()
     }
@@ -35,13 +34,12 @@ class TodayPageController: BaseListController {
         collectionView.backgroundColor = #colorLiteral(red: 0.9254021049, green: 0.9255538583, blue: 0.9253697395, alpha: 1)
     }
     
-    @objc func handleDismiss(gesture: UITapGestureRecognizer) {
+    @objc func handleRemoveView() {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             
             self.todayFullscreenController.tableView.contentOffset = .zero
             
             guard let startingFrame = self.startingFrame else { return }
-
             self.topConstraint?.constant = startingFrame.origin.y
             self.leadingConstraint?.constant = startingFrame.origin.x
             self.widthConstraint?.constant = startingFrame.width
@@ -50,10 +48,11 @@ class TodayPageController: BaseListController {
             self.view.layoutIfNeeded()
             
             self.tabBarController?.tabBar.transform = .identity
-        }) { (_) in
-            gesture.view?.removeFromSuperview()
+            
+        }, completion: { _ in
+            self.todayFullscreenController.view.removeFromSuperview()
             self.todayFullscreenController.removeFromParent()
-        }
+        })
     }
 }
 
@@ -73,27 +72,28 @@ extension TodayPageController {
 extension TodayPageController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let vc = TodayFullscreenController()
-        vc.view.layer.cornerRadius = 16
-        vc.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-        view.addSubview(vc.view)
+        let todayFullscreenController = TodayFullscreenController()
+        self.todayFullscreenController = todayFullscreenController
+        guard let todayFullscreenView = todayFullscreenController.view else { return }
+        todayFullscreenController.dismissHandler = {
+            self.handleRemoveView()
+        }
         
-        addChild(vc)
-        
-        self.todayFullscreenController = vc
+        todayFullscreenView.layer.cornerRadius = 16
+        todayFullscreenView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(todayFullscreenView)
+        addChild(todayFullscreenController)
         
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         guard let startingFrame = cell.superview?.convert(cell.frame, to: nil) else { return }
         
         self.startingFrame = startingFrame
         
-        vc.view.translatesAutoresizingMaskIntoConstraints = false
-        
-        topConstraint = vc.view.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
-        leadingConstraint = vc.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
-        widthConstraint = vc.view.widthAnchor.constraint(equalToConstant: startingFrame.width)
-        heightConstraint = vc.view.heightAnchor.constraint(equalToConstant: startingFrame.height)
-        
+        topConstraint = todayFullscreenController.view.topAnchor.constraint(equalTo: view.topAnchor, constant: startingFrame.origin.y)
+        leadingConstraint = todayFullscreenController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
+        widthConstraint = todayFullscreenController.view.widthAnchor.constraint(equalToConstant: startingFrame.width)
+        heightConstraint = todayFullscreenController.view.heightAnchor.constraint(equalToConstant: startingFrame.height)
+
         [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach { $0?.isActive = true }
         
         self.view.layoutIfNeeded()

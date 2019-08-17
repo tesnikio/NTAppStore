@@ -11,6 +11,10 @@ import UIKit
 class TodayPageController: BaseListController {
     
     fileprivate let todayCellId = "TodayCell"
+    fileprivate let items = [
+        TodayItem(category: "LIFE HACK", title: "Utilizing Your Time", imageName: "garden", description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .gardenCellColor),
+        TodayItem(category: "HOLIDAYS", title: "Travel on a Budget", imageName: "holiday", description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: .holidayCellColor)
+    ]
     var startingFrame: CGRect?
     var todayFullscreenController: TodayFullscreenController!
     var topConstraint: NSLayoutConstraint?
@@ -59,11 +63,13 @@ class TodayPageController: BaseListController {
 //MARK: - UICollectionViewDataSource
 extension TodayPageController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return items.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: todayCellId, for: indexPath) as! TodayCell
+        let item = items[indexPath.item]
+        cell.bindModel(item)
         return cell
     }
 }
@@ -73,6 +79,8 @@ extension TodayPageController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let todayFullscreenController = TodayFullscreenController()
+        let todayItem = items[indexPath.item]
+        todayFullscreenController.todayItem = todayItem
         self.todayFullscreenController = todayFullscreenController
         guard let todayFullscreenView = todayFullscreenController.view else { return }
         todayFullscreenController.dismissHandler = {

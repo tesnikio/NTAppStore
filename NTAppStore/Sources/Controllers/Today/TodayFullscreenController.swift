@@ -11,6 +11,7 @@ import UIKit
 class TodayFullscreenController: UITableViewController {
     
     var dismissHandler: (() -> ())?
+    var todayItem: TodayItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,9 @@ extension TodayFullscreenController {
         case 0:
             let cell = TodayHeaderCell()
             cell.closeButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
+            if let item = todayItem {
+                cell.todayCell.bindModel(item)
+            }
             return cell
         case 1:
             let cell = TodayFullscreenDescriptionCell()

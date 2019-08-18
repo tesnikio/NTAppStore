@@ -10,11 +10,12 @@ import UIKit
 
 class TodayPageController: BaseListController {
     
-    fileprivate let todayCellId = "TodayCell"
     fileprivate let items = [
-        TodayItem(category: "LIFE HACK", title: "Utilizing Your Time", imageName: "garden", description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .gardenCellColor),
-        TodayItem(category: "HOLIDAYS", title: "Travel on a Budget", imageName: "holiday", description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: .holidayCellColor)
+        TodayItem(category: "THE DAILY LIST", title: "Test-Drive These CarPlay Apps", imageName: "garden", description: "", backgroundColor: .none, cellType: .multiple),
+        TodayItem(category: "LIFE HACK", title: "Utilizing Your Time", imageName: "garden", description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .gardenCellColor, cellType: .single),
+        TodayItem(category: "HOLIDAYS", title: "Travel on a Budget", imageName: "holiday", description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: .holidayCellColor, cellType: .single)
     ]
+    
     var startingFrame: CGRect?
     var todayFullscreenController: TodayFullscreenController!
     var topConstraint: NSLayoutConstraint?
@@ -22,6 +23,7 @@ class TodayPageController: BaseListController {
     var widthConstraint: NSLayoutConstraint?
     var heightConstraint: NSLayoutConstraint?
 
+    static let cellSize: CGFloat = 500
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,8 @@ class TodayPageController: BaseListController {
     }
     
     fileprivate func registerCells() {
-        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: todayCellId)
+        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
+        collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
     }
     
     fileprivate func setupViews() {
@@ -72,9 +75,11 @@ extension TodayPageController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: todayCellId, for: indexPath) as! TodayCell
-        let item = items[indexPath.item]
-        cell.bindModel(item)
+        
+        let cellType = items[indexPath.item].cellType
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType.rawValue, for: indexPath) as! BaseTodayCell
+        cell.todayItem = items[indexPath.item]
+        
         return cell
     }
 }
@@ -135,7 +140,7 @@ extension TodayPageController {
 //MARK: - UICollectionViewDelegateFlowLayout
 extension TodayPageController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 64, height: 450)
+        return .init(width: view.frame.width - 64, height: TodayPageController.cellSize)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

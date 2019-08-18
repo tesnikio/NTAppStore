@@ -15,7 +15,6 @@ class ScreenshotCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        screenshotImageView.backgroundColor = .yellow
         addSubview(screenshotImageView)
         screenshotImageView.fillSuperview()
     }

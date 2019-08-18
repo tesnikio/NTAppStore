@@ -9,6 +9,7 @@
 import Foundation
 
 enum BackgroundColor {
+    case none
     case gardenCellColor
     case holidayCellColor
 }
@@ -19,4 +20,11 @@ struct TodayItem {
     let imageName: String
     let description: String
     let backgroundColor: BackgroundColor
+    
+    let cellType: CellType
+    
+    enum CellType: String {
+        case single
+        case multiple
+    }
 }

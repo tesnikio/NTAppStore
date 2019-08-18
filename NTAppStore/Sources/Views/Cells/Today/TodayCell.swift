@@ -8,7 +8,25 @@
 
 import UIKit
 
-class TodayCell: UICollectionViewCell {
+class TodayCell: BaseTodayCell {
+    
+    override var todayItem: TodayItem! {
+        didSet {
+            imageView.image = UIImage(named: todayItem.imageName)
+            categoryLabel.text = todayItem.category
+            titleLabel.text = todayItem.title
+            descriptionLabel.text = todayItem.description
+            
+            switch todayItem.backgroundColor {
+            case .none:
+                backgroundColor = .white
+            case .gardenCellColor:
+                backgroundColor = .white
+            case .holidayCellColor:
+                backgroundColor = #colorLiteral(red: 0.9844219089, green: 0.969078958, blue: 0.7214555144, alpha: 1)
+            }
+        }
+    }
     
     let imageView = UIImageView(image: #imageLiteral(resourceName: "garden.png"))
     let categoryLabel = UILabel(text: "LIFE HACK", font: .boldSystemFont(ofSize: 20))
@@ -47,17 +65,19 @@ class TodayCell: UICollectionViewCell {
         self.topConstraint.isActive = true
     }
     
-    func bindModel(_ model: TodayItem) {
-        imageView.image = UIImage(named: model.imageName)
-        categoryLabel.text = model.category
-        titleLabel.text = model.title
-        descriptionLabel.text = model.description
-        
-        switch model.backgroundColor {
-        case .gardenCellColor:
-            backgroundColor = .white
-        case .holidayCellColor:
-            backgroundColor = #colorLiteral(red: 0.9844219089, green: 0.969078958, blue: 0.7214555144, alpha: 1)
-        }
-    }
+//    func bindModel(_ model: TodayItem) {
+//        imageView.image = UIImage(named: model.imageName)
+//        categoryLabel.text = model.category
+//        titleLabel.text = model.title
+//        descriptionLabel.text = model.description
+//
+//        switch model.backgroundColor {
+//        case .none:
+//            backgroundColor = .white
+//        case .gardenCellColor:
+//            backgroundColor = .white
+//        case .holidayCellColor:
+//            backgroundColor = #colorLiteral(red: 0.9844219089, green: 0.969078958, blue: 0.7214555144, alpha: 1)
+//        }
+//    }
 }

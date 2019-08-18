@@ -41,7 +41,7 @@ extension TodayFullscreenController {
             cell.todayCell.layer.cornerRadius = 0
             cell.closeButton.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
             if let item = todayItem {
-                cell.todayCell.bindModel(item)
+                cell.todayCell.todayItem = item
             }
             return cell
         case 1:
@@ -58,7 +58,7 @@ extension TodayFullscreenController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
         case 0:
-            return 450
+            return TodayPageController.cellSize
         default:
             return super.tableView(tableView, heightForRowAt: indexPath)
         }

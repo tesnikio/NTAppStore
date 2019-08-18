@@ -14,18 +14,18 @@ class TodayHeaderCell: UITableViewCell {
     let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "close_button"), for: .normal)
-        button.tintColor = #colorLiteral(red: 0.9254021049, green: 0.9255538583, blue: 0.9253697395, alpha: 1)
+        button.tintColor = #colorLiteral(red: 0, green: 0.4779999852, blue: 1, alpha: 1)
         return button
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-                
+
         addSubview(todayCell)
         todayCell.fillSuperview()
         
         addSubview(closeButton)
-        closeButton.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 12), size: .init(width: 80, height: 34))
+        closeButton.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 44, left: 0, bottom: 0, right: 12), size: .init(width: 80, height: 34))
     }
     
     required init?(coder aDecoder: NSCoder) {

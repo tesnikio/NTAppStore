@@ -42,7 +42,7 @@ class TodayPageController: BaseListController {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             
             self.todayFullscreenController.tableView.contentOffset = .zero
-            
+
             guard let startingFrame = self.startingFrame else { return }
             self.topConstraint?.constant = startingFrame.origin.y
             self.leadingConstraint?.constant = startingFrame.origin.x
@@ -53,9 +53,14 @@ class TodayPageController: BaseListController {
             
             self.tabBarController?.tabBar.transform = .identity
             
+            guard let cell = self.todayFullscreenController.tableView.cellForRow(at: [0, 0]) as? TodayHeaderCell else { return }
+            cell.todayCell.topConstraint.constant = 24
+            cell.layoutIfNeeded()
+            
         }, completion: { _ in
             self.todayFullscreenController.view.removeFromSuperview()
             self.todayFullscreenController.removeFromParent()
+            self.collectionView.isUserInteractionEnabled = true
         })
     }
 }
@@ -82,6 +87,7 @@ extension TodayPageController {
         let todayItem = items[indexPath.item]
         todayFullscreenController.todayItem = todayItem
         self.todayFullscreenController = todayFullscreenController
+        self.collectionView.isUserInteractionEnabled = false
         guard let todayFullscreenView = todayFullscreenController.view else { return }
         todayFullscreenController.dismissHandler = {
             self.handleRemoveView()
@@ -116,6 +122,11 @@ extension TodayPageController {
             self.view.layoutIfNeeded()
             
             self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
+            
+            guard let cell = self.todayFullscreenController.tableView.cellForRow(at: [0, 0]) as? TodayHeaderCell else { return }
+            cell.todayCell.topConstraint.constant = 48
+            cell.layoutIfNeeded()
+            
         }, completion: nil)
     }
 }

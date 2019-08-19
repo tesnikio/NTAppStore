@@ -10,10 +10,6 @@ import UIKit
 
 class TodayPageController: BaseListController {
     
-//    fileprivate let items = [
-//        TodayItem(category: "HOLIDAYS", title: "Travel on a Budget", imageName: "holiday", description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: .holidayCellColor, cellType: .single)
-//    ]
-    
     var items: [TodayItem] = []
     
     let activityIndicator: UIActivityIndicatorView = {
@@ -72,7 +68,7 @@ class TodayPageController: BaseListController {
     fileprivate func fetchData() {
         let dispatchGroup = DispatchGroup()
         var topFreeGroup: AppGroup?
-        var newGamesGroup: AppGroup?
+        var topGrossingGroup: AppGroup?
         
         dispatchGroup.enter()
         Service.shared.fetchAppGroupByType(type: .topFree) { (appGroup, error) in
@@ -88,13 +84,13 @@ class TodayPageController: BaseListController {
         }
         
         dispatchGroup.enter()
-        Service.shared.fetchAppGroupByType(type: .newGames) { (appGroup, error) in
+        Service.shared.fetchAppGroupByType(type: .topGrossing) { (appGroup, error) in
             dispatchGroup.leave()
             if let error = error {
                 print("Failed to fetch new games: ", error)
                 return
             }
-            newGamesGroup = appGroup
+            topGrossingGroup = appGroup
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
@@ -103,12 +99,13 @@ class TodayPageController: BaseListController {
         dispatchGroup.notify(queue: .main) {
             
             guard let topFree = topFreeGroup else { return }
-            guard let newGames = newGamesGroup else { return }
+            guard let topGrossing = topGrossingGroup else { return }
             
             self.items = [
                 TodayItem(category: "Daily List", title: topFree.feed.title, imageName: "garden", description: "", backgroundColor: .none, apps: topFree.feed.results, cellType: .multiple),
-                TodayItem(category: "Daily List", title: newGames.feed.title, imageName: "garden", description: "", backgroundColor: .none, apps: newGames.feed.results, cellType: .multiple),
+                TodayItem(category: "Daily List", title: topGrossing.feed.title, imageName: "garden", description: "", backgroundColor: .none, apps: topGrossing.feed.results, cellType: .multiple),
                 TodayItem(category: "LIFE HACK", title: "Utilizing Your Time", imageName: "garden", description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .gardenCellColor, apps: [], cellType: .single),
+                TodayItem(category: "HOLIDAYS", title: "Travel on a Budget", imageName: "holiday", description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: .holidayCellColor, apps: [], cellType: .single),
             ]
             
             self.collectionView.reloadData()
@@ -146,6 +143,13 @@ extension TodayPageController {
 //MARK: - UICollectionViewDelegate
 extension TodayPageController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        if items[indexPath.item].cellType == .multiple {
+            let listController = TodayMultipleAppsController(mode: .fullscreen)
+            listController.results = self.items[indexPath.item].apps
+            present(listController, animated: true, completion: nil)
+            return
+        }
         
         let todayFullscreenController = TodayFullscreenController()
         let todayItem = items[indexPath.item]

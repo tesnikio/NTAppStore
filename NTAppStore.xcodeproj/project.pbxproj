@@ -31,6 +31,7 @@
 		4C873F2B230084CE00E03436 /* UIStackVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C873F2A230084CE00E03436 /* UIStackVIew.swift */; };
 		4C9C1A65230AA07E00CDD33D /* TodayMultipleAppsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C1A64230AA07E00CDD33D /* TodayMultipleAppsController.swift */; };
 		4C9C1A67230AA11100CDD33D /* MultipleAppCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C1A66230AA11100CDD33D /* MultipleAppCell.swift */; };
+		4C9C1A69230AD2B800CDD33D /* Mode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C9C1A68230AD2B800CDD33D /* Mode.swift */; };
 		4CA089A722F85F6A00F9BB7A /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */; };
 		4CA089AC22F86BBE00F9BB7A /* SearchPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089AB22F86BBE00F9BB7A /* SearchPageController.swift */; };
 		4CA089B122F8735400F9BB7A /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CA089B022F8735400F9BB7A /* SearchResultCell.swift */; };
@@ -87,6 +88,7 @@
 		4C873F2A230084CE00E03436 /* UIStackVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackVIew.swift; sourceTree = "<group>"; };
 		4C9C1A64230AA07E00CDD33D /* TodayMultipleAppsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayMultipleAppsController.swift; sourceTree = "<group>"; };
 		4C9C1A66230AA11100CDD33D /* MultipleAppCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipleAppCell.swift; sourceTree = "<group>"; };
+		4C9C1A68230AD2B800CDD33D /* Mode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mode.swift; sourceTree = "<group>"; };
 		4CA089A622F85F6A00F9BB7A /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
 		4CA089AB22F86BBE00F9BB7A /* SearchPageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPageController.swift; sourceTree = "<group>"; };
 		4CA089B022F8735400F9BB7A /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SearchResultCell.swift; path = ../SearchResultCell.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 				4C7E8F5722FDEED100F92848 /* HeaderApp.swift */,
 				4CA5E16B2303FEE6009B862C /* Review.swift */,
 				4C32364C23086B1D00DCC483 /* TodayItem.swift */,
+				4C9C1A68230AD2B800CDD33D /* Mode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 				4C0BFBC222FACAA9006AA41E /* AppRowCell.swift in Sources */,
 				4CA5E16C2303FEE6009B862C /* Review.swift in Sources */,
 				4C873F212300305200E03436 /* SnappingLayout.swift in Sources */,
+				4C9C1A69230AD2B800CDD33D /* Mode.swift in Sources */,
 				4CA580C822F9AD88001951CB /* UILabel.swift in Sources */,
 				4CD1FDEA22FD89DB009D3241 /* AppsHeaderHorizontalController.swift in Sources */,
 				4CA5E1682303F24F009B862C /* ReviewsController.swift in Sources */,

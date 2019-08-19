@@ -10,25 +10,25 @@ import UIKit
 
 class TodayPageController: BaseListController {
     
-    fileprivate let items = [
-        TodayItem(category: "THE DAILY LIST", title: "Test-Drive These CarPlay Apps", imageName: "garden", description: "", backgroundColor: .none, cellType: .multiple),
-        TodayItem(category: "LIFE HACK", title: "Utilizing Your Time", imageName: "garden", description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .gardenCellColor, cellType: .single),
-        TodayItem(category: "HOLIDAYS", title: "Travel on a Budget", imageName: "holiday", description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: .holidayCellColor, cellType: .single)
-    ]
+//    fileprivate let items = [
+//        TodayItem(category: "HOLIDAYS", title: "Travel on a Budget", imageName: "holiday", description: "Find out all you need to know on how to travel without packing everything!", backgroundColor: .holidayCellColor, cellType: .single)
+//    ]
     
-    var startingFrame: CGRect?
-    var todayFullscreenController: TodayFullscreenController!
-    var topConstraint: NSLayoutConstraint?
-    var leadingConstraint: NSLayoutConstraint?
-    var widthConstraint: NSLayoutConstraint?
-    var heightConstraint: NSLayoutConstraint?
-
-    static let cellSize: CGFloat = 500
+    var items: [TodayItem] = []
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let aiv = UIActivityIndicatorView(style: .whiteLarge)
+        aiv.color = .darkGray
+        aiv.startAnimating()
+        aiv.hidesWhenStopped = true
+        return aiv
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
         setupViews()
+        fetchData()
     }
     
     fileprivate func registerCells() {
@@ -39,6 +39,8 @@ class TodayPageController: BaseListController {
     fileprivate func setupViews() {
         navigationController?.navigationBar.isHidden = true
         collectionView.backgroundColor = #colorLiteral(red: 0.9254021049, green: 0.9255538583, blue: 0.9253697395, alpha: 1)
+        view.addSubview(activityIndicator)
+        activityIndicator.centerInSuperview()
     }
     
     @objc func handleRemoveView() {
@@ -66,6 +68,63 @@ class TodayPageController: BaseListController {
             self.collectionView.isUserInteractionEnabled = true
         })
     }
+    
+    fileprivate func fetchData() {
+        let dispatchGroup = DispatchGroup()
+        var topFreeGroup: AppGroup?
+        var newGamesGroup: AppGroup?
+        
+        dispatchGroup.enter()
+        Service.shared.fetchAppGroupByType(type: .topFree) { (appGroup, error) in
+            dispatchGroup.leave()
+            if let error = error {
+                print("Failed to fetch top free apps: ", error)
+                return
+            }
+            topFreeGroup = appGroup
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+        
+        dispatchGroup.enter()
+        Service.shared.fetchAppGroupByType(type: .newGames) { (appGroup, error) in
+            dispatchGroup.leave()
+            if let error = error {
+                print("Failed to fetch new games: ", error)
+                return
+            }
+            newGamesGroup = appGroup
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+            }
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            
+            guard let topFree = topFreeGroup else { return }
+            guard let newGames = newGamesGroup else { return }
+            
+            self.items = [
+                TodayItem(category: "Daily List", title: topFree.feed.title, imageName: "garden", description: "", backgroundColor: .none, apps: topFree.feed.results, cellType: .multiple),
+                TodayItem(category: "Daily List", title: newGames.feed.title, imageName: "garden", description: "", backgroundColor: .none, apps: newGames.feed.results, cellType: .multiple),
+                TodayItem(category: "LIFE HACK", title: "Utilizing Your Time", imageName: "garden", description: "All the tools and apps you need to intelligently organize your life the right way.", backgroundColor: .gardenCellColor, apps: [], cellType: .single),
+            ]
+            
+            self.collectionView.reloadData()
+            self.activityIndicator.stopAnimating()
+        }
+    }
+    
+    
+    var startingFrame: CGRect?
+    var todayFullscreenController: TodayFullscreenController!
+    var topConstraint: NSLayoutConstraint?
+    var leadingConstraint: NSLayoutConstraint?
+    var widthConstraint: NSLayoutConstraint?
+    var heightConstraint: NSLayoutConstraint?
+    
+    static let cellSize: CGFloat = 500
 }
 
 //MARK: - UICollectionViewDataSource

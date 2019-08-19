@@ -13,7 +13,6 @@ class TodayMultipleAppsController: BaseListController {
         super.viewDidLoad()
         setupViews()
         registerCells()
-        fetchMultipleApps()
     }
     
     fileprivate func registerCells() {
@@ -25,19 +24,9 @@ class TodayMultipleAppsController: BaseListController {
         collectionView.isScrollEnabled = false
     }
     
-    fileprivate func fetchMultipleApps() {
-        Service.shared.fetchAppGroupByType(type: .topFree) { [weak self] (appGroup, error) in
-            guard let results = appGroup?.feed.results else { return }
-            self?.results = results
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-        }
-    }
-    
     fileprivate let multipleAppCellId = "MultipleAppCell"
     fileprivate let spacing: CGFloat = 16
-    fileprivate var results = [FeedResult]()
+    var results = [FeedResult]()
 }
 
 //MARK: - UICollectionViewDataSource

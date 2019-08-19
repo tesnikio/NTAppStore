@@ -27,6 +27,12 @@ class TodayPageController: BaseListController {
         fetchData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        tabBarController?.tabBar.superview?.setNeedsLayout()
+    }
+    
     fileprivate func registerCells() {
         collectionView.register(TodayCell.self, forCellWithReuseIdentifier: TodayItem.CellType.single.rawValue)
         collectionView.register(TodayMultipleAppCell.self, forCellWithReuseIdentifier: TodayItem.CellType.multiple.rawValue)
@@ -39,11 +45,11 @@ class TodayPageController: BaseListController {
         activityIndicator.centerInSuperview()
     }
     
-    @objc func handleRemoveView() {
+    @objc fileprivate func handleRemoveView() {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
             
             self.todayFullscreenController.tableView.contentOffset = .zero
-
+            
             guard let startingFrame = self.startingFrame else { return }
             self.topConstraint?.constant = startingFrame.origin.y
             self.leadingConstraint?.constant = startingFrame.origin.x
@@ -63,6 +69,25 @@ class TodayPageController: BaseListController {
             self.todayFullscreenController.removeFromParent()
             self.collectionView.isUserInteractionEnabled = true
         })
+    }
+    
+    @objc fileprivate func handleMultipleAppsTap(gesture: UITapGestureRecognizer) {
+        
+        let smallCollectionView = gesture.view
+        var superview = smallCollectionView?.superview
+        
+        while superview != nil {
+            if let cell = superview as? TodayMultipleAppCell {
+                guard let indexPath = self.collectionView.indexPath(for: cell) else { return }
+                let detailFromCellController = TodayMultipleAppsController(mode: .fullscreen)
+                let apps = self.items[indexPath.item].apps
+                detailFromCellController.apps = apps
+                
+                present(detailFromCellController, animated: true, completion: nil)
+            }
+            superview = superview?.superview
+            return
+        }
     }
     
     fileprivate func fetchData() {
@@ -136,6 +161,8 @@ extension TodayPageController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellType.rawValue, for: indexPath) as! BaseTodayCell
         cell.todayItem = items[indexPath.item]
         
+        (cell as? TodayMultipleAppCell)?.multipleAppsController.collectionView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMultipleAppsTap)))
+        
         return cell
     }
 }
@@ -146,8 +173,8 @@ extension TodayPageController {
         
         if items[indexPath.item].cellType == .multiple {
             let listController = TodayMultipleAppsController(mode: .fullscreen)
-            listController.results = self.items[indexPath.item].apps
-            present(listController, animated: true, completion: nil)
+            listController.apps = self.items[indexPath.item].apps
+            present(BackEnabledNavigationController(rootViewController: listController), animated: true, completion: nil)
             return
         }
         
@@ -175,7 +202,7 @@ extension TodayPageController {
         leadingConstraint = todayFullscreenController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: startingFrame.origin.x)
         widthConstraint = todayFullscreenController.view.widthAnchor.constraint(equalToConstant: startingFrame.width)
         heightConstraint = todayFullscreenController.view.heightAnchor.constraint(equalToConstant: startingFrame.height)
-
+        
         [topConstraint, leadingConstraint, widthConstraint, heightConstraint].forEach { $0?.isActive = true }
         
         self.view.layoutIfNeeded()

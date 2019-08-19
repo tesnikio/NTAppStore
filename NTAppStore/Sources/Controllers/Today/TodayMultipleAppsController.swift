@@ -48,6 +48,7 @@ class TodayMultipleAppsController: BaseListController {
     
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
+        navigationController?.isNavigationBarHidden = true
     }
     
     fileprivate func setupCloseButton() {
@@ -64,7 +65,7 @@ class TodayMultipleAppsController: BaseListController {
     fileprivate let spacing: CGFloat = 16
     fileprivate let mode: Mode
     fileprivate let fullScreenInset: CGFloat = 48
-    var results = [FeedResult]()
+    var apps = [FeedResult]()
     override var prefersStatusBarHidden: Bool {
         return true
     }
@@ -75,7 +76,7 @@ extension TodayMultipleAppsController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch mode {
         case .fullscreen:
-            return results.count
+            return apps.count
         case .small:
             return 4
         }
@@ -83,10 +84,20 @@ extension TodayMultipleAppsController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: multipleAppCellId, for: indexPath) as! MultipleAppCell
-        cell.bind(to: results[indexPath.item])
+        cell.bind(to: apps[indexPath.item])
         return cell
     }
 }
+
+//MARK: - UICollectionViewDelegate
+extension TodayMultipleAppsController {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let appId = self.apps[indexPath.item].id
+        let appDetailController = AppDetailController(appId: appId)
+        navigationController?.pushViewController(appDetailController, animated: true)
+    }
+}
+
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension TodayMultipleAppsController: UICollectionViewDelegateFlowLayout {

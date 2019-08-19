@@ -17,7 +17,7 @@ class TodayFullscreenController: UITableViewController {
         super.viewDidLoad()
         setupViews()
     }
-
+    
     fileprivate func setupViews() {
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none

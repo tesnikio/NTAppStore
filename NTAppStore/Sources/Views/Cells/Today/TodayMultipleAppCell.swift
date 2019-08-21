@@ -35,7 +35,6 @@ class TodayMultipleAppCell: BaseTodayCell {
     fileprivate func setupViews() {
         backgroundColor = .white
         layer.cornerRadius = 16
-        clipsToBounds = true
         
         let stackView = VerticalStackView(arrangedSubviews: [
             categoryLabel,

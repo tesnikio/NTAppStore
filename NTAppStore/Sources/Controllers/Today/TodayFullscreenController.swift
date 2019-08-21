@@ -43,6 +43,7 @@ extension TodayFullscreenController {
             if let item = todayItem {
                 cell.todayCell.todayItem = item
             }
+            cell.clipsToBounds = true
             return cell
         case 1:
             let cell = TodayFullscreenDescriptionCell()

@@ -20,10 +20,13 @@ class TodayCell: BaseTodayCell {
             switch todayItem.backgroundColor {
             case .none:
                 backgroundColor = .white
+                backgroundView?.backgroundColor = .white
             case .gardenCellColor:
                 backgroundColor = .white
+                backgroundView?.backgroundColor = .white
             case .holidayCellColor:
                 backgroundColor = #colorLiteral(red: 0.9844219089, green: 0.969078958, blue: 0.7214555144, alpha: 1)
+                backgroundView?.backgroundColor = #colorLiteral(red: 0.9844219089, green: 0.969078958, blue: 0.7214555144, alpha: 1)
             }
         }
     }
@@ -46,7 +49,7 @@ class TodayCell: BaseTodayCell {
     fileprivate func setupViews() {
         backgroundColor = .white
         layer.cornerRadius = 16
-        clipsToBounds = true
+        imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         
         let imageContainerView = UIView()
@@ -64,20 +67,5 @@ class TodayCell: BaseTodayCell {
         self.topConstraint = stackView.topAnchor.constraint(equalTo: topAnchor, constant: 24)
         self.topConstraint.isActive = true
     }
-    
-//    func bindModel(_ model: TodayItem) {
-//        imageView.image = UIImage(named: model.imageName)
-//        categoryLabel.text = model.category
-//        titleLabel.text = model.title
-//        descriptionLabel.text = model.description
-//
-//        switch model.backgroundColor {
-//        case .none:
-//            backgroundColor = .white
-//        case .gardenCellColor:
-//            backgroundColor = .white
-//        case .holidayCellColor:
-//            backgroundColor = #colorLiteral(red: 0.9844219089, green: 0.969078958, blue: 0.7214555144, alpha: 1)
-//        }
-//    }
+
 }

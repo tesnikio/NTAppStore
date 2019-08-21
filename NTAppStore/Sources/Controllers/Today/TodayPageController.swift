@@ -79,14 +79,15 @@ class TodayPageController: BaseListController {
         while superview != nil {
             if let cell = superview as? TodayMultipleAppCell {
                 guard let indexPath = self.collectionView.indexPath(for: cell) else { return }
-                let detailFromCellController = TodayMultipleAppsController(mode: .fullscreen)
+                let fullFromCellController = TodayMultipleAppsController(mode: .fullscreen)
                 let apps = self.items[indexPath.item].apps
-                detailFromCellController.apps = apps
+                fullFromCellController.apps = apps
+                let ncFullFromCellController = BackEnabledNavigationController(rootViewController: fullFromCellController)
                 
-                present(detailFromCellController, animated: true, completion: nil)
+                present(ncFullFromCellController, animated: true, completion: nil)
+                return
             }
             superview = superview?.superview
-            return
         }
     }
     

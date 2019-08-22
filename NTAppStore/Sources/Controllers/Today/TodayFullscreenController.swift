@@ -17,10 +17,54 @@ class TodayFullscreenController: UIViewController {
         return button
     }()
     
+    let getButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("GET", for: .normal)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        button.backgroundColor = .darkGray
+        button.setTitleColor(.white, for: .normal)
+        button.constrainWidth(constant: 80)
+        button.constrainHeight(constant: 32)
+        button.layer.cornerRadius = 16
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         delegating()
+        setupFloatingControls()
+    }
+    
+    fileprivate func setupFloatingControls() {
+        let floatingContainerView = UIView()
+        floatingContainerView.layer.cornerRadius = 16
+        floatingContainerView.clipsToBounds = true
+        view.addSubview(floatingContainerView)
+        let bottomPadding = UIApplication.shared.statusBarFrame.height
+        floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: bottomPadding, right: 16), size: .init(width: 0, height: 90))
+        
+        let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        floatingContainerView.addSubview(blurVisualEffectView)
+        blurVisualEffectView.fillSuperview()
+        
+        let imageView = UIImageView(cornerRadius: 16)
+        imageView.image = UIImage(named: todayItem?.imageName ?? "")
+        imageView.constrainHeight(constant: 68)
+        imageView.constrainWidth(constant: 68)
+        
+        let stackView = UIStackView(arrangedSubviews: [
+                imageView,
+                VerticalStackView(arrangedSubviews: [
+                        UILabel(text: "Life Hack", font: .boldSystemFont(ofSize: 18)),
+                        UILabel(text: "Utilizing Your Time", font: .systemFont(ofSize: 15)),
+                    ], spacing: 6),
+                getButton,
+            ], customSpacing: 16)
+        
+        floatingContainerView.addSubview(stackView)
+        stackView.fillSuperview(padding: .init(top: 0, left: 16, bottom: 0, right: 16))
+        stackView.alignment = .center
     }
     
     fileprivate func setupViews() {

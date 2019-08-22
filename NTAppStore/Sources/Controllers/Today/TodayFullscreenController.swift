@@ -37,16 +37,17 @@ class TodayFullscreenController: UIViewController {
     }
     
     fileprivate func setupFloatingControls() {
-        let floatingContainerView = UIView()
         floatingContainerView.layer.cornerRadius = 16
         floatingContainerView.clipsToBounds = true
         view.addSubview(floatingContainerView)
-        let bottomPadding = UIApplication.shared.statusBarFrame.height
-        floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: bottomPadding, right: 16), size: .init(width: 0, height: 90))
+        //let bottomPadding = UIApplication.shared.statusBarFrame.height
+        floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: -90, right: 16), size: .init(width: 0, height: 90))
         
         let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
         floatingContainerView.addSubview(blurVisualEffectView)
         blurVisualEffectView.fillSuperview()
+        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         
         let imageView = UIImageView(cornerRadius: 16)
         imageView.image = UIImage(named: todayItem?.imageName ?? "")
@@ -91,6 +92,7 @@ class TodayFullscreenController: UIViewController {
     let tableView = UITableView(frame: .zero, style: .plain)
     var dismissHandler: (() -> ())?
     var todayItem: TodayItem?
+    let floatingContainerView = UIView()
 }
 
 //MARK: - UITableViewDataSource
@@ -133,9 +135,15 @@ extension TodayFullscreenController: UITableViewDelegate {
 
 //MARK: - Actions
 extension TodayFullscreenController {
-    @objc func handleDismiss(button: UIButton) {
+    @objc fileprivate func handleDismiss(button: UIButton) {
         button.isHidden = true
         dismissHandler?()
+    }
+    
+    @objc fileprivate func handleTap() {
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            self.floatingContainerView.transform = .init(translationX: 0, y: -90)
+        })
     }
 }
 
@@ -146,5 +154,13 @@ extension TodayFullscreenController: UIScrollViewDelegate {
             scrollView.isScrollEnabled = false
             scrollView.isScrollEnabled = true
         }
+                
+        let translationY = -90 - UIApplication.shared.statusBarFrame.height
+        let transform = scrollView.contentOffset.y > 100 ? CGAffineTransform(translationX: 0, y: translationY) : .identity
+        
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            
+            self.floatingContainerView.transform = transform
+        })
     }
 }

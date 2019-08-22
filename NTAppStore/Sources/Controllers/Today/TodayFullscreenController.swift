@@ -10,9 +10,6 @@ import UIKit
 
 class TodayFullscreenController: UITableViewController {
     
-    var dismissHandler: (() -> ())?
-    var todayItem: TodayItem?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
@@ -26,6 +23,9 @@ class TodayFullscreenController: UITableViewController {
         let height = UIApplication.shared.statusBarFrame.height
         tableView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
     }
+    
+    var dismissHandler: (() -> ())?
+    var todayItem: TodayItem?
 }
 
 //MARK: - UITableViewDataSource
@@ -44,6 +44,7 @@ extension TodayFullscreenController {
                 cell.todayCell.todayItem = item
             }
             cell.clipsToBounds = true
+            cell.todayCell.backgroundView = nil
             return cell
         case 1:
             let cell = TodayFullscreenDescriptionCell()
@@ -71,5 +72,15 @@ extension TodayFullscreenController {
     @objc func handleDismiss(button: UIButton) {
         button.isHidden = true
         dismissHandler?()
+    }
+}
+
+//MARK: - UIScrollViewDelegate
+extension TodayFullscreenController {
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y < 0 {
+            scrollView.isScrollEnabled = false
+            scrollView.isScrollEnabled = true
+        }
     }
 }

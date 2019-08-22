@@ -17,7 +17,8 @@ class TodayPageController: BaseListController {
         aiv.hidesWhenStopped = true
         return aiv
     }()
-
+    
+    let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
     
     //MARK: - Setup UI
     override func viewDidLoad() {
@@ -42,6 +43,9 @@ class TodayPageController: BaseListController {
         collectionView.backgroundColor = #colorLiteral(red: 0.9254021049, green: 0.9255538583, blue: 0.9253697395, alpha: 1)
         view.addSubview(activityIndicator)
         activityIndicator.centerInSuperview()
+        view.addSubview(blurVisualEffectView)
+        blurVisualEffectView.fillSuperview()
+        blurVisualEffectView.alpha = 0
     }
     
     //MARK: - Private variables and constants
@@ -49,6 +53,7 @@ class TodayPageController: BaseListController {
     var todayFullscreenController: TodayFullscreenController!
     var items: [TodayItem] = []
     var anchoredConstraint: AnchoredConstraints?
+    var appFullscreenBeginOffset: CGFloat = 0
     
     fileprivate let minimumLineSpacing: CGFloat = 32
     public static let cellSize: CGFloat = 500
@@ -115,10 +120,14 @@ extension TodayPageController {
         let todayItem = items[indexPath.item]
         todayFullscreenController.todayItem = todayItem
         todayFullscreenController.dismissHandler = {
-            self.handleRemoveView()
+            self.handleTodayFullscreenDismissal()
         }
         self.todayFullscreenController = todayFullscreenController
         todayFullscreenController.view.layer.cornerRadius = 16
+        
+        let gesture = UIPanGestureRecognizer(target: self, action: #selector(handleDrag))
+        gesture.delegate = self
+        todayFullscreenController.view.addGestureRecognizer(gesture)
     }
     
     fileprivate func setupStartingCellFrame(_ indexPath: IndexPath) {
@@ -146,6 +155,8 @@ extension TodayPageController {
     
     fileprivate func beginFullscreenAppAnimation() {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            self.blurVisualEffectView.alpha = 1
+            
             self.anchoredConstraint?.top?.constant = 0
             self.anchoredConstraint?.leading?.constant = 0
             self.anchoredConstraint?.width?.constant = self.view.frame.width
@@ -169,8 +180,11 @@ extension TodayPageController {
 
 //MARK: - Actions
 extension TodayPageController {
-    @objc fileprivate func handleRemoveView() {
+    @objc fileprivate func handleTodayFullscreenDismissal() {
         UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+            
+            self.blurVisualEffectView.alpha = 0
+            self.todayFullscreenController.view.transform = .identity
             
             self.todayFullscreenController.tableView.contentOffset = .zero
             
@@ -185,6 +199,7 @@ extension TodayPageController {
             self.tabBarController?.tabBar.transform = .identity
             
             guard let cell = self.todayFullscreenController.tableView.cellForRow(at: [0, 0]) as? TodayHeaderCell else { return }
+            cell.closeButton.alpha = 0
             cell.todayCell.topConstraint.constant = 24
             cell.layoutIfNeeded()
             
@@ -211,6 +226,36 @@ extension TodayPageController {
                 return
             }
             superview = superview?.superview
+        }
+    }
+    
+    @objc fileprivate func handleDrag(gesture: UIPanGestureRecognizer) {
+        
+        if gesture.state == .began {
+            appFullscreenBeginOffset = todayFullscreenController.tableView.contentOffset.y
+        }
+        
+        if todayFullscreenController.tableView.contentOffset.y > 0 {
+            return
+        }
+        
+        let translationY = gesture.translation(in: todayFullscreenController.view).y
+        switch gesture.state {
+        case .ended:
+            if translationY > 0 {
+                handleTodayFullscreenDismissal()
+            }
+        case .changed:
+            let trueOffset = translationY - appFullscreenBeginOffset
+            if translationY > 0 {
+                var scale = 1 - trueOffset / 1000
+                scale = min(1, scale)
+                scale = max(0.5, scale)
+                let transform = CGAffineTransform(scaleX: scale, y: scale)
+                self.todayFullscreenController.view.transform = transform
+            }
+        default:
+            break
         }
     }
 }
@@ -261,3 +306,13 @@ extension TodayPageController: UICollectionViewDelegateFlowLayout {
         return .init(top: minimumLineSpacing, left: 0, bottom: minimumLineSpacing, right: 0)
     }
 }
+
+//MARK: - UIGestureRecognizerDelegate
+
+extension TodayPageController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
+    }
+}
+
+

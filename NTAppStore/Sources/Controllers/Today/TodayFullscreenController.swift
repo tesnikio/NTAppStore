@@ -40,7 +40,6 @@ class TodayFullscreenController: UIViewController {
         floatingContainerView.layer.cornerRadius = 16
         floatingContainerView.clipsToBounds = true
         view.addSubview(floatingContainerView)
-        //let bottomPadding = UIApplication.shared.statusBarFrame.height
         floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: -90, right: 16), size: .init(width: 0, height: 90))
         
         let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
@@ -89,6 +88,7 @@ class TodayFullscreenController: UIViewController {
         tableView.delegate = self
     }
     
+    //MARK: - Local Instances
     let tableView = UITableView(frame: .zero, style: .plain)
     var dismissHandler: (() -> ())?
     var todayItem: TodayItem?

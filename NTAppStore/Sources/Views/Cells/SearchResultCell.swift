@@ -16,14 +16,14 @@ class SearchResultCell: UICollectionViewCell {
             categoryLabel.text = appResult.primaryGenreName
             ratingsLabel.text = "Rating: " + String(describing: appResult.averageUserRating != nil ? appResult.averageUserRating! : 0)
             appIconImageView.sd_setImage(with: URL(string: appResult.artworkUrl100))
-            screenshot1ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls[0]))
+            screenshot1ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls![0]))
             
-            if appResult.screenshotUrls.count > 1 {
-                screenshot2ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls[1]))
+            if appResult.screenshotUrls!.count > 1 {
+                screenshot2ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls![1]))
             }
             
-            if appResult.screenshotUrls.count > 2 {
-                screenshot3ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls[2]))
+            if appResult.screenshotUrls!.count > 2 {
+                screenshot3ImageView.sd_setImage(with: URL(string: appResult.screenshotUrls![2]))
             }
         }
     }

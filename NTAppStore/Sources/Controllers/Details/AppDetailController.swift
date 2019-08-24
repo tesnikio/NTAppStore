@@ -10,13 +10,6 @@ import UIKit
 
 class AppDetailController: BaseListController {
     
-    fileprivate let appDetailId = "AppDetailCell"
-    fileprivate let previewId   = "PreviewCell"
-    fileprivate let reviewId    = "ReviewCell"
-    fileprivate let appId: String
-    fileprivate var app: AppSearchResult?
-    fileprivate var reviews: Review?
-    
     init(appId: String) {
         self.appId = appId
         super.init()
@@ -70,32 +63,40 @@ class AppDetailController: BaseListController {
             }
         }
     }
+    
+    fileprivate let appDetailId = "AppDetailCell"
+    fileprivate let previewId   = "PreviewCell"
+    fileprivate let reviewId    = "ReviewCell"
+    fileprivate let appId: String
+    fileprivate var app: AppSearchResult?
+    fileprivate var reviews: Review?
+    fileprivate let cellTypes = [CellType.appDetail, .preview, .review]
+    fileprivate let bottomInset: CGFloat = 16
 }
 
 //MARK: - UICollectionViewDataSource
 extension AppDetailController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return cellTypes.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        switch indexPath.item {
-        case 0:
+        let cellType = cellTypes[indexPath.item]
+        
+        switch cellType {
+        case .appDetail:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: appDetailId, for: indexPath) as! AppDetailCell
             cell.app = app
             return cell
-        case 1:
+        case .preview:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: previewId, for: indexPath) as! PreviewCell
             cell.screenshotsController.app = app
             return cell
-        case 2:
+        case .review:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reviewId, for: indexPath) as! ReviewsCell
             cell.reviewsController.reviews = reviews
-            
             return cell
-        default:
-            return UICollectionViewCell()
         }
     }
 }
@@ -104,10 +105,11 @@ extension AppDetailController {
 extension AppDetailController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
+        let cellType = cellTypes[indexPath.item]
         var height: CGFloat = 220
         
-        switch indexPath.item {
-        case 0:
+        switch cellType {
+        case .appDetail:
             let currentCell = AppDetailCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
             currentCell.app = app
             currentCell.layoutIfNeeded()
@@ -115,18 +117,22 @@ extension AppDetailController: UICollectionViewDelegateFlowLayout {
             let estimatedSize = currentCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
             
             height = estimatedSize.height
-        case 1:
+        case .preview:
             height = 500
-        case 2:
+        case .review:
             height = 220
-        default:
-            return .zero
         }
         
         return .init(width: view.frame.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 0, left: 0, bottom: 16, right: 0)
+        return .init(top: 0, left: 0, bottom: bottomInset, right: 0)
     }
+}
+
+fileprivate enum CellType {
+    case appDetail
+    case preview
+    case review
 }

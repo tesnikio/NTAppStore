@@ -16,22 +16,22 @@ class TrackCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setuoViews()
+        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    fileprivate func setuoViews() {
+    fileprivate func setupViews() {
         imageView.image = #imageLiteral(resourceName: "garden.png")
         imageView.constrainWidth(constant: 80)
         let stackView = UIStackView(arrangedSubviews: [
-                imageView,
-                VerticalStackView(arrangedSubviews: [
-                        nameLabel,
-                        subtitleLabel,
-                    ], spacing: 4),
+            imageView,
+            VerticalStackView(arrangedSubviews: [
+                nameLabel,
+                subtitleLabel,
+                ], spacing: 4),
             ], customSpacing: 16)
         addSubview(stackView)
         stackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))

@@ -16,19 +16,23 @@ class PreviewScreenshotsController: HorizontalSnappingController {
         }
     }
     
-    fileprivate let cellId = "ScreenshotCell"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        collectionView.backgroundColor = .white
-        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        setupViews()
         registerCells()
     }
     
     fileprivate func registerCells() {
         collectionView.register(ScreenshotCell.self, forCellWithReuseIdentifier: cellId)
     }
+    
+    fileprivate func setupViews() {
+        collectionView.backgroundColor = .white
+        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+    }
+    
+    fileprivate let cellId = "ScreenshotCell"
+    fileprivate let itemWidth: CGFloat = 250
 }
 
 //MARK: - UICollectionViewDataSource
@@ -38,16 +42,18 @@ extension PreviewScreenshotsController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ScreenshotCell
-        let screenshotUrlString = app?.screenshotUrls?[indexPath.item]
-        cell.screenshotImageView.sd_setImage(with: URL(string: screenshotUrlString ?? ""))
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ScreenshotCell {
+            let screenshotUrlString = app?.screenshotUrls?[indexPath.item]
+            cell.screenshotImageView.sd_setImage(with: URL(string: screenshotUrlString ?? ""))
+            return cell
+        }
+        return UICollectionViewCell()
     }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension PreviewScreenshotsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 250, height: view.frame.height)
+        return .init(width: itemWidth, height: view.frame.height)
     }
 }

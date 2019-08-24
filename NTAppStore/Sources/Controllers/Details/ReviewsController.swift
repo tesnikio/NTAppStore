@@ -10,8 +10,6 @@ import UIKit
 
 class ReviewsController: HorizontalSnappingController {
     
-    fileprivate let cellId = "ReviewRowCell"
-    
     var reviews: Review? {
         didSet {
             collectionView.reloadData()
@@ -20,19 +18,29 @@ class ReviewsController: HorizontalSnappingController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
         registerCells()
     }
     
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
-        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = .init(top: 0, left: minimumSpacing, bottom: 0, right: minimumSpacing)
     }
     
     fileprivate func registerCells() {
         collectionView.register(ReviewRowCell.self, forCellWithReuseIdentifier: cellId)
     }
+    
+    fileprivate func calculateRating(cell: ReviewRowCell, entry: Entry?) {
+        for (index, view) in cell.startStackView.arrangedSubviews.enumerated() {
+            if let ratingInt = Int(entry!.rating.label) {
+                view.alpha = index >= ratingInt ? 0 : 1
+            }
+        }
+    }
+    
+    fileprivate let cellId = "ReviewRowCell"
+    fileprivate let minimumSpacing: CGFloat = 16
 }
 
 //MARK: - UICollectionViewDataSource
@@ -42,29 +50,23 @@ extension ReviewsController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ReviewRowCell
-        let entry = reviews?.feed.entry[indexPath.item]
-        cell.titleLabel.text = entry?.title.label
-        cell.authorLabel.text = entry?.author.name.label
-        cell.reviewBodyLabel.text = entry?.content.label
-        
-        for (index, view) in cell.startStackView.arrangedSubviews.enumerated() {
-            if let ratingInt = Int(entry!.rating.label) {
-                view.alpha = index >= ratingInt ? 0 : 1
-            }
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? ReviewRowCell {
+            let entry = reviews?.feed.entry[indexPath.item]
+            cell.bindModel(entry)
+            calculateRating(cell: cell, entry: entry)
+            return cell
         }
-        
-        return cell
+        return UICollectionViewCell()
     }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension ReviewsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 48, height: view.frame.height)
+        return .init(width: view.frame.width - 3 * minimumSpacing, height: view.frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 16
+        return minimumSpacing
     }
 }

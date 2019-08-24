@@ -58,4 +58,10 @@ class ReviewRowCell: UICollectionViewCell {
         addSubview(stackView)
         stackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 20, left: 20, bottom: 0, right: 20))
     }
+    
+    func bindModel(_ model: Entry?) {
+        titleLabel.text = model?.title.label
+        authorLabel.text = model?.author.name.label
+        reviewBodyLabel.text = model?.content.label
+    }
 }

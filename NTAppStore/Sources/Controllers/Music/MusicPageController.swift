@@ -107,7 +107,6 @@ extension MusicPageController {
     }
 }
 
-
 //MARK: - UICollectionViewDelegateFlowLayout
 extension MusicPageController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

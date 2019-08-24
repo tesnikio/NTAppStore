@@ -11,7 +11,14 @@ import UIKit
 class TracksLoadingFooter: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        setupViews()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    fileprivate func setupViews() {
         let aiv = UIActivityIndicatorView(style: .whiteLarge)
         aiv.color = .darkGray
         aiv.startAnimating()
@@ -20,14 +27,10 @@ class TracksLoadingFooter: UICollectionReusableView {
         label.textAlignment = .center
         
         let stackView = VerticalStackView(arrangedSubviews: [
-                aiv,
-                label
+            aiv,
+            label
             ], spacing: 8)
         addSubview(stackView)
         stackView.centerInSuperview(size: .init(width: 200, height: 0))
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

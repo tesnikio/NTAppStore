@@ -10,19 +10,15 @@ import UIKit
 
 class AppsHeaderHorizontalController: HorizontalSnappingController {
     
-    fileprivate let cellId = "AppsHeaderCell"
-    var headers = [HeaderApp]()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupViews()
         registerCells()
     }
     
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
-        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = .init(top: 0, left: cvInset, bottom: 0, right: cvInset)
         
         if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
             layout.scrollDirection = .horizontal
@@ -32,6 +28,10 @@ class AppsHeaderHorizontalController: HorizontalSnappingController {
     fileprivate func registerCells() {
         collectionView.register(AppsHeaderCell.self, forCellWithReuseIdentifier: cellId)
     }
+    
+    fileprivate let cellId = "AppsHeaderCell"
+    fileprivate let cvInset: CGFloat = 16
+    var headers = [HeaderApp]()
 }
 
 //MARK: - UICollectionViewDataSource
@@ -41,18 +41,18 @@ extension AppsHeaderHorizontalController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppsHeaderCell
-        let header = headers[indexPath.item]
-        cell.companyLabel.text = header.name
-        cell.titleLabel.text = header.tagline
-        cell.adImageView.sd_setImage(with: URL(string: header.imageUrl))
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? AppsHeaderCell {
+            let header = headers[indexPath.item]
+            cell.bindModel(header)
+            return cell
+        }
+        return UICollectionViewCell()
     }
 }
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension AppsHeaderHorizontalController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width - 48, height: view.frame.height)
+        return .init(width: view.frame.width - 3 * cvInset, height: view.frame.height)
     }
 }

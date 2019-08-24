@@ -10,10 +10,6 @@ import UIKit
 
 class AppsPageController: BaseListController {
     
-    fileprivate let cellId   = "AppsGroupCell"
-    fileprivate let headerId = "AppsPageHeader"
-    fileprivate var groups   = [AppGroup]()
-    fileprivate var headers  = [HeaderApp]()
     fileprivate let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .whiteLarge)
         indicator.color = .gray
@@ -27,7 +23,7 @@ class AppsPageController: BaseListController {
         
         setupViews()
         registerViews()
-        fetchData()
+        fetchAppGroups()
     }
     
     fileprivate func setupViews() {
@@ -41,8 +37,7 @@ class AppsPageController: BaseListController {
         collectionView.register(AppsPageHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerId)
     }
     
-    fileprivate func fetchData() {
-        
+    fileprivate func fetchAppGroups() {
         var appGroup1: AppGroup?
         var appGroup2: AppGroup?
         var appGroup3: AppGroup?
@@ -93,6 +88,13 @@ class AppsPageController: BaseListController {
             self?.collectionView.reloadData()
         }
     }
+    
+    fileprivate let cellId = "AppsGroupCell"
+    fileprivate let headerId = "AppsPageHeader"
+    fileprivate var groups = [AppGroup]()
+    fileprivate var headers = [HeaderApp]()
+    fileprivate let itemHeight: CGFloat = 300
+    fileprivate let topInset: CGFloat = 16
 }
 
 //MARK: - UICollectionViewDataSource
@@ -133,14 +135,14 @@ extension AppsPageController {
 //MARK: - UICollectionViewDelegateFlowLayout
 extension AppsPageController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: 300)
+        return .init(width: view.frame.width, height: itemHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 16, left: 0, bottom: 0, right: 0)
+        return .init(top: topInset, left: 0, bottom: 0, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return .init(width: view.frame.width, height: 300)
+        return .init(width: view.frame.width, height: itemHeight)
     }
 }

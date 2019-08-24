@@ -28,4 +28,10 @@ class AppsHeaderCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func bindModel(_ model: HeaderApp) {
+        companyLabel.text = model.name
+        titleLabel.text = model.tagline
+        adImageView.sd_setImage(with: URL(string: model.imageUrl))
+    }
 }

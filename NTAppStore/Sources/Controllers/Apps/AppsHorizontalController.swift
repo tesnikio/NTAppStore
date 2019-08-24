@@ -10,13 +10,6 @@ import UIKit
 
 class AppsHorizontalController: HorizontalSnappingController {
     
-    fileprivate let cellId = "AppRowCell"
-    fileprivate let topBottomPadding: CGFloat = 12
-    fileprivate let lineSpacing: CGFloat = 10
-    fileprivate let widthPadding: CGFloat = 48
-    var appGroup: AppGroup?
-    var didSelectHandler: ((FeedResult) -> ())?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,12 +19,20 @@ class AppsHorizontalController: HorizontalSnappingController {
     
     fileprivate func setupViews() {
         collectionView.backgroundColor = .white
-        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = .init(top: 0, left: cvInset, bottom: 0, right: cvInset)
     }
     
     fileprivate func registerCells() {
         collectionView.register(AppRowCell.self, forCellWithReuseIdentifier: cellId)
     }
+    
+    fileprivate let cellId = "AppRowCell"
+    fileprivate let topBottomPadding: CGFloat = 12
+    fileprivate let lineSpacing: CGFloat = 10
+    fileprivate let widthPadding: CGFloat = 48
+    fileprivate let cvInset: CGFloat = 16
+    var appGroup: AppGroup?
+    var didSelectHandler: ((FeedResult) -> ())?
 }
 
 //MARK: - UICollectionViewDataSource
@@ -41,12 +42,12 @@ extension AppsHorizontalController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! AppRowCell
-        let app = appGroup?.feed.results[indexPath.item]
-        cell.nameLabel.text = app?.name
-        cell.companyLabel.text = app?.artistName
-        cell.appIconImageView.sd_setImage(with: URL(string: app?.artworkUrl100 ?? ""))
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as? AppRowCell {
+            guard let app = appGroup?.feed.results[indexPath.item] else { return cell }
+            cell.bindModel(app)
+            return cell
+        }
+        return UICollectionViewCell()
     }
 }
 
@@ -57,7 +58,6 @@ extension AppsHorizontalController {
         didSelectHandler?(app)
     }
 }
-
 
 //MARK: - UICollectionViewDelegateFlowLayout
 extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {

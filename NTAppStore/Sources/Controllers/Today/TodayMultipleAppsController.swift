@@ -53,11 +53,7 @@ class TodayMultipleAppsController: BaseListController {
     
     fileprivate func setupCloseButton() {
         view.addSubview(dismissButton)
-        dismissButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 16, left: 0, bottom: 0, right: 16), size: .init(width: 44, height: 44))
-    }
-    
-    @objc func handleDismiss() {
-        dismiss(animated: true, completion: nil)
+        dismissButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: spacing, left: 0, bottom: 0, right: spacing), size: .init(width: buttonSize, height: buttonSize))
     }
     
     
@@ -65,9 +61,20 @@ class TodayMultipleAppsController: BaseListController {
     fileprivate let spacing: CGFloat = 16
     fileprivate let mode: Mode
     fileprivate let fullScreenInset: CGFloat = 48
+    fileprivate let numberOfItemsInSmallController = 4
+    fileprivate let height: CGFloat = 68
+    fileprivate let itemInset: CGFloat = 12
+    fileprivate let buttonSize: CGFloat = 44
     var apps = [FeedResult]()
     override var prefersStatusBarHidden: Bool {
         return true
+    }
+}
+
+//MARK: - Actions
+extension TodayMultipleAppsController {
+    @objc func handleDismiss() {
+        dismiss(animated: true, completion: nil)
     }
 }
 
@@ -78,14 +85,16 @@ extension TodayMultipleAppsController {
         case .fullscreen:
             return apps.count
         case .small:
-            return 4
+            return numberOfItemsInSmallController
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: multipleAppCellId, for: indexPath) as! MultipleAppCell
-        cell.bind(to: apps[indexPath.item])
-        return cell
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: multipleAppCellId, for: indexPath) as? MultipleAppCell {
+            cell.bind(to: apps[indexPath.item])
+            return cell
+        }
+        return UICollectionViewCell()
     }
 }
 
@@ -102,7 +111,6 @@ extension TodayMultipleAppsController {
 //MARK: - UICollectionViewDelegateFlowLayout
 extension TodayMultipleAppsController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height: CGFloat = 68
         switch mode {
         case .fullscreen:
             return .init(width: view.frame.width - fullScreenInset, height: height)
@@ -119,7 +127,7 @@ extension TodayMultipleAppsController: UICollectionViewDelegateFlowLayout {
         let cvInset = fullScreenInset / 2
         switch mode {
         case .fullscreen:
-            return .init(top: 12, left: cvInset, bottom: 12, right: cvInset)
+            return .init(top: itemInset, left: cvInset, bottom: itemInset, right: cvInset)
         case .small:
             return .zero
         }

@@ -199,7 +199,6 @@ extension TodayPageController {
             self.tabBarController?.tabBar.transform = .identity
             
             guard let cell = self.todayFullscreenController.tableView.cellForRow(at: [0, 0]) as? TodayHeaderCell else { return }
-            //cell.closeButton.alpha = 0
             self.todayFullscreenController.closeButton.alpha = 0
             cell.todayCell.topConstraint.constant = 24
             cell.layoutIfNeeded()

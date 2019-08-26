@@ -70,7 +70,7 @@ class AppDetailController: BaseListController {
     fileprivate let appId: String
     fileprivate var app: AppSearchResult?
     fileprivate var reviews: Review?
-    fileprivate let cellTypes = [CellType.appDetail, .preview, .review]
+    fileprivate let cellTypes = [AppDetailCellType.appDetail, .preview, .review]
     fileprivate let bottomInset: CGFloat = 16
 }
 
@@ -131,7 +131,7 @@ extension AppDetailController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-fileprivate enum CellType {
+fileprivate enum AppDetailCellType {
     case appDetail
     case preview
     case review

@@ -37,10 +37,10 @@ class TodayFullscreenController: UIViewController {
     }
     
     fileprivate func setupFloatingControls() {
-        floatingContainerView.layer.cornerRadius = 16
+        floatingContainerView.layer.cornerRadius = spacing
         floatingContainerView.clipsToBounds = true
         view.addSubview(floatingContainerView)
-        floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: 16, bottom: -90, right: 16), size: .init(width: 0, height: 90))
+        floatingContainerView.anchor(top: nil, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 0, left: spacing, bottom: floatingContainerHeightOffset, right: spacing), size: .init(width: 0, height: 90))
         
         let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
         floatingContainerView.addSubview(blurVisualEffectView)
@@ -48,22 +48,22 @@ class TodayFullscreenController: UIViewController {
         
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap)))
         
-        let imageView = UIImageView(cornerRadius: 16)
+        let imageView = UIImageView(cornerRadius: spacing)
         imageView.image = UIImage(named: todayItem?.imageName ?? "")
         imageView.constrainHeight(constant: 68)
         imageView.constrainWidth(constant: 68)
         
         let stackView = UIStackView(arrangedSubviews: [
-                imageView,
-                VerticalStackView(arrangedSubviews: [
-                        UILabel(text: "Life Hack", font: .boldSystemFont(ofSize: 18)),
-                        UILabel(text: "Utilizing Your Time", font: .systemFont(ofSize: 15)),
-                    ], spacing: 6),
-                getButton,
-            ], customSpacing: 16)
+            imageView,
+            VerticalStackView(arrangedSubviews: [
+                UILabel(text: "Life Hack", font: .boldSystemFont(ofSize: 18)),
+                UILabel(text: "Utilizing Your Time", font: .systemFont(ofSize: 15)),
+                ], spacing: 6),
+            getButton,
+            ], customSpacing: spacing)
         
         floatingContainerView.addSubview(stackView)
-        stackView.fillSuperview(padding: .init(top: 0, left: 16, bottom: 0, right: 16))
+        stackView.fillSuperview(padding: .init(top: 0, left: spacing, bottom: 0, right: spacing))
         stackView.alignment = .center
     }
     
@@ -90,20 +90,23 @@ class TodayFullscreenController: UIViewController {
     
     //MARK: - Local Instances
     let tableView = UITableView(frame: .zero, style: .plain)
-    var dismissHandler: (() -> ())?
     var todayItem: TodayItem?
-    let floatingContainerView = UIView()
+    var dismissHandler: (() -> ())?
+    fileprivate let floatingContainerView = UIView()
+    fileprivate let cellTypes = [TodayFullscreenCellType.header, .description]
+    fileprivate let floatingContainerHeightOffset: CGFloat = -90
+    fileprivate let spacing: CGFloat = 16
 }
 
 //MARK: - UITableViewDataSource
 extension TodayFullscreenController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return cellTypes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.item {
-        case 0:
+        switch cellTypes[indexPath.item] {
+        case .header:
             let cell = TodayHeaderCell()
             cell.todayCell.layer.cornerRadius = 0
             if let item = todayItem {
@@ -112,11 +115,9 @@ extension TodayFullscreenController: UITableViewDataSource {
             cell.clipsToBounds = true
             cell.todayCell.backgroundView = nil
             return cell
-        case 1:
+        case .description:
             let cell = TodayFullscreenDescriptionCell()
             return cell
-        default:
-            return UITableViewCell()
         }
     }
 }
@@ -124,10 +125,10 @@ extension TodayFullscreenController: UITableViewDataSource {
 //MARK: - UITableViewDelegate
 extension TodayFullscreenController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 0:
+        switch cellTypes[indexPath.item] {
+        case .header:
             return TodayPageController.cellSize
-        default:
+        case .description:
             return UITableView.automaticDimension
         }
     }
@@ -141,8 +142,8 @@ extension TodayFullscreenController {
     }
     
     @objc fileprivate func handleTap() {
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
-            self.floatingContainerView.transform = .init(translationX: 0, y: -90)
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: { [weak self] in
+            self?.floatingContainerView.transform = .init(translationX: 0, y: self!.floatingContainerHeightOffset)
         })
     }
 }
@@ -154,13 +155,18 @@ extension TodayFullscreenController: UIScrollViewDelegate {
             scrollView.isScrollEnabled = false
             scrollView.isScrollEnabled = true
         }
-                
-        let translationY = -90 - UIApplication.shared.statusBarFrame.height
+        
+        let translationY = floatingContainerHeightOffset - UIApplication.shared.statusBarFrame.height
         let transform = scrollView.contentOffset.y > 100 ? CGAffineTransform(translationX: 0, y: translationY) : .identity
         
-        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+        UIView.animate(withDuration: 0.7, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: { [weak self] in
             
-            self.floatingContainerView.transform = transform
+            self?.floatingContainerView.transform = transform
         })
     }
+}
+
+enum TodayFullscreenCellType {
+    case header
+    case description
 }

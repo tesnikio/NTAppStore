@@ -41,8 +41,10 @@ class ReviewRowCell: UICollectionViewCell {
         backgroundColor = #colorLiteral(red: 0.9420462251, green: 0.9367366433, blue: 0.9714002013, alpha: 1)
         layer.cornerRadius = 16
         clipsToBounds = true
+        
         authorLabel.textColor = .gray
         authorLabel.textAlignment = .right
+        
         titleLabel.setContentCompressionResistancePriority(.init(0), for: .horizontal)
         
         
@@ -56,7 +58,7 @@ class ReviewRowCell: UICollectionViewCell {
             ], spacing: 12)
         
         addSubview(stackView)
-        stackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 20, left: 20, bottom: 0, right: 20))
+        stackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: stackViewPadding, left: stackViewPadding, bottom: 0, right: stackViewPadding))
     }
     
     func bindModel(_ model: Entry?) {
@@ -64,4 +66,6 @@ class ReviewRowCell: UICollectionViewCell {
         authorLabel.text = model?.author.name.label
         reviewBodyLabel.text = model?.content.label
     }
+    
+    fileprivate let stackViewPadding: CGFloat = 20
 }

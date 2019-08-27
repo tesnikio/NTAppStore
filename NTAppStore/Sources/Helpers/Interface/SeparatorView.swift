@@ -42,6 +42,5 @@ internal final class SeparatorView: UIView {
         setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         setContentCompressionResistancePriority(.defaultLow, for: .vertical)
     }
-    
 }
 

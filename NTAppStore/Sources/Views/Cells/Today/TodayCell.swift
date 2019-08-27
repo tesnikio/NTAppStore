@@ -10,6 +10,11 @@ import UIKit
 
 class TodayCell: BaseTodayCell {
     
+    let imageView = UIImageView(image: #imageLiteral(resourceName: "garden.png"))
+    let categoryLabel = UILabel(text: "LIFE HACK", font: .boldSystemFont(ofSize: 20))
+    let titleLabel = UILabel(text: "Utilizing Your Time", font: .boldSystemFont(ofSize: 28))
+    let descriptionLabel = UILabel(text: "All the tools and apps you need to intelligently organize your life the right way.", font: .systemFont(ofSize: 16), numberOfLines: 3)
+    
     override var todayItem: TodayItem! {
         didSet {
             imageView.image = UIImage(named: todayItem.imageName)
@@ -30,12 +35,6 @@ class TodayCell: BaseTodayCell {
             }
         }
     }
-    
-    let imageView = UIImageView(image: #imageLiteral(resourceName: "garden.png"))
-    let categoryLabel = UILabel(text: "LIFE HACK", font: .boldSystemFont(ofSize: 20))
-    let titleLabel = UILabel(text: "Utilizing Your Time", font: .boldSystemFont(ofSize: 28))
-    let descriptionLabel = UILabel(text: "All the tools and apps you need to intelligently organize your life the right way.", font: .systemFont(ofSize: 16), numberOfLines: 3)
-    var topConstraint: NSLayoutConstraint!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -67,5 +66,6 @@ class TodayCell: BaseTodayCell {
         self.topConstraint = stackView.topAnchor.constraint(equalTo: topAnchor, constant: 24)
         self.topConstraint.isActive = true
     }
-
+    
+    var topConstraint: NSLayoutConstraint!
 }

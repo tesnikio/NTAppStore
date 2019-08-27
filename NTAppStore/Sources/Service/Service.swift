@@ -51,7 +51,7 @@ final class Service {
             } catch let jsonError {
                 print("Failed to fetch apps: ", jsonError)
             }
-        }.resume()
+            }.resume()
     }
     
     func createUrlStringForFeedType(type: FeedType) -> String {

@@ -37,5 +37,11 @@ class TrackCell: UICollectionViewCell {
         stackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
         stackView.alignment = .center
     }
+    
+    func bind(to model: AppSearchResult) {
+        imageView.sd_setImage(with: URL(string: model.artworkUrl100))
+        nameLabel.text = model.trackName
+        subtitleLabel.text = model.artistName! + " • " + model.collectionName!
+    }
 }
 

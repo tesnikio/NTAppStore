@@ -51,16 +51,18 @@ class AppDetailCell: UICollectionViewCell {
                     UIStackView(arrangedSubviews: [priceButton, UIView()]),
                     UIView()
                     ], spacing: 12)
-                ], customSpacing: 20),
+                ], customSpacing: stackViewPadding),
             whatsNewLabel,
             releaseNotesLabel,
             separatorView,
             ], spacing: 16)
         addSubview(stackView)
-        stackView.fillSuperview(padding: .init(top: 20, left: 20, bottom: 20, right: 20))
+        stackView.fillSuperview(padding: .init(top: stackViewPadding, left: stackViewPadding, bottom: stackViewPadding, right: stackViewPadding))
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
+    
+    fileprivate let stackViewPadding: CGFloat = 20
 }

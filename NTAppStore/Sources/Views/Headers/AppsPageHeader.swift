@@ -10,8 +10,6 @@ import UIKit
 
 class AppsPageHeader: UICollectionReusableView {
     
-    let appHeaderHorizontalController = AppsHeaderHorizontalController()
-    
     fileprivate func setupViews() {
         
         addSubview(appHeaderHorizontalController.view)
@@ -26,4 +24,6 @@ class AppsPageHeader: UICollectionReusableView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    let appHeaderHorizontalController = AppsHeaderHorizontalController()
 }

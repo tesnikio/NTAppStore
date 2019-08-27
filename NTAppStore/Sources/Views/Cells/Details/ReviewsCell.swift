@@ -9,7 +9,7 @@
 import UIKit
 
 class ReviewsCell: UICollectionViewCell {
-        
+    
     let reviewsController = ReviewsController()
     
     override init(frame: CGRect) {

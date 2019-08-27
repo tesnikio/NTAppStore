@@ -10,6 +10,10 @@ import UIKit
 
 class SearchResultCell: UICollectionViewCell {
     
+    let nameLabel = UILabel()
+    let categoryLabel = UILabel(text: "Category", font: .systemFont(ofSize: 14), textColor: .gray)
+    let ratingsLabel = UILabel(text: "Rating", font: .systemFont(ofSize: 14), textColor: .gray)
+    
     var appResult: AppSearchResult! {
         didSet {
             nameLabel.text = appResult.trackName
@@ -39,10 +43,6 @@ class SearchResultCell: UICollectionViewCell {
         return imageView
     }()
     
-    let nameLabel = UILabel()
-    let categoryLabel = UILabel(text: "Category", font: .systemFont(ofSize: 14), textColor: .gray)
-    let ratingsLabel = UILabel(text: "Rating", font: .systemFont(ofSize: 14), textColor: .gray)
-
     let getButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("GET", for: .normal)
@@ -53,10 +53,6 @@ class SearchResultCell: UICollectionViewCell {
         button.layer.cornerRadius = 16
         return button
     }()
-    
-    lazy var screenshot1ImageView = self.createScreenshotImageView()
-    lazy var screenshot2ImageView = self.createScreenshotImageView()
-    lazy var screenshot3ImageView = self.createScreenshotImageView()
     
     func createScreenshotImageView() -> UIImageView {
         let imageView = UIImageView()
@@ -97,8 +93,13 @@ class SearchResultCell: UICollectionViewCell {
         super.init(frame: frame)
         setupViews()
     }
-        
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }    
+    }
+    
+    
+    lazy var screenshot1ImageView = self.createScreenshotImageView()
+    lazy var screenshot2ImageView = self.createScreenshotImageView()
+    lazy var screenshot3ImageView = self.createScreenshotImageView()
 }

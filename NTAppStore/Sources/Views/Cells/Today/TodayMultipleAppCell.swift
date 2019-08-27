@@ -10,6 +10,9 @@ import UIKit
 
 class TodayMultipleAppCell: BaseTodayCell {
     
+    let categoryLabel = UILabel(text: "THE DAILY LIST", font: .boldSystemFont(ofSize: 20))
+    let titleLabel = UILabel(text: "Test-Drive These CarPlay Apps", font: .boldSystemFont(ofSize: 32), numberOfLines: 2)
+    
     override var todayItem: TodayItem! {
         didSet {
             categoryLabel.text = todayItem.category
@@ -17,12 +20,7 @@ class TodayMultipleAppCell: BaseTodayCell {
             multipleAppsController.apps = todayItem.apps
         }
     }
-    
-    let categoryLabel = UILabel(text: "THE DAILY LIST", font: .boldSystemFont(ofSize: 20))
-    let titleLabel = UILabel(text: "Test-Drive These CarPlay Apps", font: .boldSystemFont(ofSize: 32), numberOfLines: 2)
-    
-    let multipleAppsController = TodayMultipleAppsController(mode: .small)
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -44,5 +42,7 @@ class TodayMultipleAppCell: BaseTodayCell {
         addSubview(stackView)
         stackView.fillSuperview(padding: .init(top: 24, left: 24, bottom: 24, right: 24))
     }
+    
+    let multipleAppsController = TodayMultipleAppsController(mode: .small)
 }
 

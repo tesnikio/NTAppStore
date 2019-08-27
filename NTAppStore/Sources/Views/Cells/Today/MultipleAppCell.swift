@@ -20,6 +20,7 @@ class MultipleAppCell: UICollectionViewCell {
         appIconImageView.layer.borderWidth = 0.3
         appIconImageView.constrainWidth(constant: 64)
         appIconImageView.constrainHeight(constant: 64)
+        
         getButton.backgroundColor = UIColor(white: 0.95, alpha: 1)
         getButton.titleLabel?.font = .boldSystemFont(ofSize: 14)
         getButton.layer.cornerRadius = 16

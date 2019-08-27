@@ -11,7 +11,7 @@ import UIKit
 class ScreenshotCell: UICollectionViewCell {
     
     let screenshotImageView = UIImageView(cornerRadius: 8)
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         

@@ -9,23 +9,23 @@
 import Foundation
 
 enum BackgroundColor {
-    case none
-    case gardenCellColor
-    case holidayCellColor
+  case none
+  case gardenCellColor
+  case holidayCellColor
 }
 
 struct TodayItem {
-    let category: String
-    let title: String
-    let imageName: String
-    let description: String
-    let backgroundColor: BackgroundColor
-    
-    let apps: [FeedResult]
-    let cellType: CellType
-    
-    enum CellType: String {
-        case single
-        case multiple
-    }
+  let category: String
+  let title: String
+  let imageName: String
+  let description: String
+  let backgroundColor: BackgroundColor
+  
+  let apps: [FeedResult]
+  let cellType: CellType
+  
+  enum CellType: String {
+    case single
+    case multiple
+  }
 }

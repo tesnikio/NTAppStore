@@ -9,6 +9,6 @@
 import Foundation
 
 enum Mode {
-    case small
-    case fullscreen
+  case small
+  case fullscreen
 }

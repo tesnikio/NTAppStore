@@ -9,8 +9,8 @@
 import Foundation
 
 struct HeaderApp: Decodable {
-    let id: String
-    let name: String
-    let imageUrl: String
-    let tagline: String
+  let id: String
+  let name: String
+  let imageUrl: String
+  let tagline: String
 }

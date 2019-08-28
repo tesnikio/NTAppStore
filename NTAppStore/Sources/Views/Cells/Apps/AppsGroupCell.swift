@@ -9,24 +9,24 @@
 import UIKit
 
 class AppsGroupCell: UICollectionViewCell {
+  
+  let sectionTitleLabel = UILabel(text: "App Section", font: .boldSystemFont(ofSize: 26))
+  let horizontalViewController = AppsHorizontalController()
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setupViews()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  fileprivate func setupViews() {
+    addSubview(sectionTitleLabel)
+    addSubview(horizontalViewController.view)
     
-    let sectionTitleLabel = UILabel(text: "App Section", font: .boldSystemFont(ofSize: 26))
-    let horizontalViewController = AppsHorizontalController()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    fileprivate func setupViews() {
-        addSubview(sectionTitleLabel)
-        addSubview(horizontalViewController.view)
-        
-        sectionTitleLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
-        horizontalViewController.view.anchor(top: sectionTitleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
-    }
+    sectionTitleLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
+    horizontalViewController.view.anchor(top: sectionTitleLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor)
+  }
 }

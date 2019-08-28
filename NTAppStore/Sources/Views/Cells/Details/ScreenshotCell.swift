@@ -9,19 +9,19 @@
 import UIKit
 
 class ScreenshotCell: UICollectionViewCell {
+  
+  let screenshotImageView = UIImageView(cornerRadius: 8)
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
     
-    let screenshotImageView = UIImageView(cornerRadius: 8)
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        addSubview(screenshotImageView)
-        screenshotImageView.fillSuperview()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    addSubview(screenshotImageView)
+    screenshotImageView.fillSuperview()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
 }
 
 

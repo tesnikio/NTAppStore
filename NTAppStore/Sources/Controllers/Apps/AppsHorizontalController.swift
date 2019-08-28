@@ -63,7 +63,7 @@ extension AppsHorizontalController {
 extension AppsHorizontalController: UICollectionViewDelegateFlowLayout {
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     let width = view.frame.width - widthPadding
-    let height = (view.frame.height - 2 * topBottomPadding - 2 * lineSpacing) / 3
+    let height = (view.frame.height - 2 * topBottomPadding - 5 * lineSpacing) / 3
     return .init(width: width, height: height)
   }
   

@@ -127,7 +127,7 @@ extension TodayMultipleAppsController: UICollectionViewDelegateFlowLayout {
     let cvInset = fullScreenInset / 2
     switch mode {
     case .fullscreen:
-      return .init(top: itemInset, left: cvInset, bottom: itemInset, right: cvInset)
+      return .init(top: height, left: cvInset, bottom: itemInset, right: cvInset)
     case .small:
       return .zero
     }

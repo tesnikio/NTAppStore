@@ -311,8 +311,8 @@
 			children = (
 				4C598E3622F85E880076804A /* AppDelegate.swift */,
 				4CA089BB22F8CAED00F9BB7A /* Service */,
-				4CA089B822F8C27100F9BB7A /* Models */,
 				4CA089B322F87B5B00F9BB7A /* Helpers */,
+				4CA089B822F8C27100F9BB7A /* Models */,
 				4CA089AF22F8732500F9BB7A /* Views */,
 				4CA089A822F86B4F00F9BB7A /* Controllers */,
 			);

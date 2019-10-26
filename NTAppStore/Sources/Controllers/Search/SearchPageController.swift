@@ -45,7 +45,7 @@ class SearchPageController: BaseListController {
     navigationItem.searchController = self.searchController
     navigationItem.hidesSearchBarWhenScrolling = false
     definesPresentationContext = true
-    searchController.dimsBackgroundDuringPresentation = false
+    searchController.obscuresBackgroundDuringPresentation = false
     searchController.searchBar.delegate = self
   }
 }
